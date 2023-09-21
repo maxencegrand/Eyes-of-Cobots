@@ -85,28 +85,27 @@ class Recorder:
         gaze_data['timestamp'] = timestamp()
         """Fonction qui est appelée à l'acquisition de chaque frame"""
         if (gaze_data['left_gaze_point_validity'] == 1 and gaze_data['right_gaze_point_validity'] == 1):
-            gaze_data['x'] = round(
+            gaze_data['gaze_vizualisation_x'] = round(
                 (gaze_data['left_gaze_point_on_display_area'][0] + gaze_data['right_gaze_point_on_display_area'][0]) / 2, 2)
-            gaze_data['y'] = round(
+            gaze_data['gaze_vizualisation_y'] = round(
                 (gaze_data['left_gaze_point_on_display_area'][1] + gaze_data['right_gaze_point_on_display_area'][1]) / 2, 2)
 
         elif (gaze_data['left_gaze_point_validity'] == 1 and gaze_data['right_gaze_point_validity'] == 0):
-            gaze_data['x'] = gaze_data['left_gaze_point_on_display_area'][0]
-            gaze_data['y'] = gaze_data['left_gaze_point_on_display_area'][1]
+            gaze_data['gaze_vizualisation_x'] = gaze_data['left_gaze_point_on_display_area'][0]
+            gaze_data['gaze_vizualisation_y'] = gaze_data['left_gaze_point_on_display_area'][1]
 
         elif (gaze_data['left_gaze_point_validity'] == 0 and gaze_data['right_gaze_point_validity'] == 1):
-            gaze_data['x'] = gaze_data['right_gaze_point_on_display_area'][0]
-            gaze_data['y'] = gaze_data['right_gaze_point_on_display_area'][1]
+            gaze_data['gaze_vizualisation_x'] = gaze_data['right_gaze_point_on_display_area'][0]
+            gaze_data['gaze_vizualisation_y'] = gaze_data['right_gaze_point_on_display_area'][1]
 
 
         else:
-            gaze_data['x'] = float("nan")
-            gaze_data['y'] = float("nan")
-            all_data.append([gaze_data["timestamp"], gaze_data["x"], gaze_data["y"]])
+            all_data.append(gaze_data)
             return
 
-        all_data.append([gaze_data["timestamp"], gaze_data["x"], gaze_data["y"]])
-        printable_data[gaze_data["timestamp"]] = [gaze_data["x"], gaze_data["y"]]
+        # all_data.append([gaze_data["timestamp"], gaze_data["x"], gaze_data["y"]])
+        all_data.append(gaze_data)
+        printable_data[gaze_data["timestamp"]] = [gaze_data["gaze_vizualisation_x"], gaze_data["gaze_vizualisation_y"]]
         return
 
     def finish(self):
@@ -115,10 +114,10 @@ class Recorder:
                                         self.gaze_data_callback)
         with open(self.filename, 'w') as f:
             writer = csv.writer(f)
-            writer.writerow(["Timestamp", "x", "y"])
+            writer.writerow(all_data[0].keys())
             for row in all_data:
                 if len(row) > 0:
-                    writer.writerow(row)
+                    writer.writerow(list(row.values()))
         print("Done.\n")
 
 def record(tracker, filename="tmp.csv"):

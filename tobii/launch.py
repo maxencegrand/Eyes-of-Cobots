@@ -6,6 +6,8 @@ from calibration import Calibrator
 from validation import validate
 from gazerecording import record
 import os
+import argparse# Create the parser
+
 
 class Tracker:
     def __init__(self, log = 0):
@@ -67,6 +69,14 @@ def run(dir="."):
             do_calibration = continue_test("\nKeep this calibration? (Y/n)", yes=False)
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()# Add an argument
+    parser.add_argument('-path', type=str, required=True)# Parse the argument
+    parser.add_argument('-user', type=str, required=True)# Parse the argument
+    parser.add_argument('-figure', type=str, required=True)# Parse the argument
+
+    args = parser.parse_args()
+
+    path_record =  
     print("Welcome to the eye-tracking experiment\n")
     in_experiment = True
     while(in_experiment):
