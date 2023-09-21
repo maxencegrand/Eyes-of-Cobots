@@ -7,6 +7,7 @@ from tobiiresearch.implementation.Calibration import _calibration_status
 from tobiiresearch.implementation.Calibration import CALIBRATION_STATUS_SUCCESS, CALIBRATION_STATUS_FAILURE
 from tobiiresearch.implementation.Calibration import CALIBRATION_STATUS_SUCCESS_LEFT_EYE
 from tobiiresearch.implementation.Calibration import CALIBRATION_STATUS_SUCCESS_RIGHT_EYE
+import cv2
 
 labels = {
 (0.5, 0.5):"BLUE CENTER (1)",\
@@ -23,10 +24,11 @@ labels = {
 class Calibrator:
     def __init__(self, eyetracker):
         print("Initialize calibrator")
-        self.points_to_calibrate = [(0.5, 0.5), \
-                                    (0.1, 0.9), (0.1,0.5), (0.1, 0.1),\
-                                    (0.5, 0.1), (0.9, 0.1),\
-                                    (0.9,0.5),  (0.9,0.9), (0.5, 0.9)]
+        # self.points_to_calibrate = [(0.5, 0.5), \
+        #                             (0.1, 0.9), (0.1,0.5), (0.1, 0.1),\
+        #                             (0.5, 0.1), (0.9, 0.1),\
+        #                             (0.9,0.5),  (0.9,0.9), (0.5, 0.9)]
+        self.points_to_calibrate = [(0.5, 0.5)]
         if eyetracker is None:
             sys.exit(1)
         self.eyetracker = eyetracker

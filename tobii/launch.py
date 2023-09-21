@@ -8,7 +8,6 @@ from gazerecording import record
 import os
 import argparse# Create the parser
 
-
 class Tracker:
     def __init__(self, log = 0):
         self.data = None
@@ -50,23 +49,22 @@ def continue_test(question, yes=True):
             print("Bad argument %s" % str)
             continue
 
-def run(dir="."):
-    tracker = Tracker()
-    calibrator = Calibrator(tracker.tracker)
-    do_calibration = True
-    first = True
-    continue_experiment = True
-    while(continue_experiment):
-        while(do_calibration):
-            # calibrator.calibrate()
-            # validate(tracker.tracker)
-            do_calibration = continue_test("\nKeep this calibration? (Y/n)", yes=False)
-        csvfile = input("What is the name of the structure?")
-        record(tracker.tracker, "%s/TOBII-%s.csv" % (dir, csvfile) )
-        continue_experiment = continue_test("Continue experiment? (Y/n)", yes=True)
-        if(continue_experiment):
-            validate(tracker.tracker)
-            do_calibration = continue_test("\nKeep this calibration? (Y/n)", yes=False)
+# def run(dir="."):
+#     tracker = Tracker()
+#     calibrator = Calibrator(tracker.tracker)
+#     do_calibration = True
+#     first = True
+#     continue_experiment = True
+#     while(continue_experiment):
+#         while(do_calibration):
+#             # calibrator.calibrate()
+#             # validate(tracker.tracker)
+#             do_calibration = continue_test("\nKeep this calibration? (Y/n)", yes=False)
+#         record(tracker.tracker, "%s/TOBII-%s.csv" % (dir, csvfile) )
+#         continue_experiment = continue_test("Continue experiment? (Y/n)", yes=True)
+#         if(continue_experiment):
+#             validate(tracker.tracker)
+#             do_calibration = continue_test("\nKeep this calibration? (Y/n)", yes=False)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()# Add an argument
@@ -76,18 +74,18 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    path_record =  
-    print("Welcome to the eye-tracking experiment\n")
-    in_experiment = True
-    while(in_experiment):
-        id = input("What is the participant's ID?")
-        savedir = input("In which directory should the data be saved for the user %s?" % id)
-        dir = "%s\%s" % (savedir, id)
-        if os.path.isdir(dir):
-            print("The experiment can now begin\n")
-            run(dir=dir)
-            in_experiment = False
-        else:
-            print("The %s directory does not exist\n" % dir)
-    print("\nThe experiment is over.\nThank you for your participation.\n")
+    path_record = "%s\\%s\\%s" % (args.path, args.user, args.figure)
+    tracker = Tracker()
+    calibrator = Calibrator(tracker.tracker)
+    do_calibration = True
+
+    if(continue_test("\nTry to skip calibration? (Y/n)")):
+        validate(tracker.tracker)
+        do_calibration = continue_test("\nKeep this calibration? (Y/n)", yes=False)
+    while(do_calibration):
+        calibrator.calibrate()
+        validate(tracker.tracker)
+        do_calibration = continue_test("\nKeep this calibration? (Y/n)", yes=False)
+
+    record(tracker.tracker, ("%s\\instructions.csv" % path_record) )
     sys.exit(0)
