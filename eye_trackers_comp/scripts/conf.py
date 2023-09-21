@@ -1,5 +1,5 @@
 import constants as cst
-from table_loader import _GET, _LOAD, _TOLIST, _GET_ALL, _GET_ALL_VALUES
+from table_loader import _GET, _LOAD, _TOLIST, _GET_ALL, _GET_ALL_VALUES, _ADD
 from utils import centroid
 
 class Position:
@@ -27,7 +27,8 @@ class Block:
 class Users:
     # LOAD USERS DATASET
     def __init__(self,pretest=False):
-        if pretest:
+        self.pretest = pretest
+        if self.pretest:
             self.table = _LOAD(cst._USERS_CSV_PRETEST)
         else:
             self.table = _LOAD(cst._USERS_CSV)
@@ -49,10 +50,7 @@ class Users:
 
     def get_position(self, id):
         return _GET(self.table,id, cst._KEY_USER_POSITION_ID, keyId=cst._KEY_USER_ID)
-
-    def get_order(self, id):
-        return _GET(self.table,id, cst._KEY_USER_ORDER_ID, keyId=cst._KEY_USER_ID)
-
+        
     #
     def print_user_info(self,id):
         print()

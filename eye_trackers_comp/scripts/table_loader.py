@@ -24,3 +24,6 @@ def _GET_ALL(table, id, keyId="id"):
 
 def _TOLIST(table,key):
     return table[key].tolist()
+
+def _ADD(table, tuple):
+    table[len(table)] = list

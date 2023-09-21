@@ -1,3 +1,3 @@
-id,rep,day,hour,order,setup,position,score1,score2
-100,"C:\Users\Maxence GRAND\Documents\eye-tracking-experiment-1\data\recordings",30/06/23,13:13:00,0,0,0,7,12
-101,"C:\Users\Maxence GRAND\Documents\eye-tracking-experiment-1\data\recordings",30/06/23,13:00:00,0,0,0,14,11
+id,rep,day,hour,setup,position,score1,score2
+0,100,C:\Users\Maxence GRAND\Documents\eye-tracking-experiment-1\data\recordings,30/06/23,13:13:00,0,0,7,12
+1,101,C:\Users\Maxence GRAND\Documents\eye-tracking-experiment-1\data\recordings,30/06/23,13:00:00,0,0,14,11
