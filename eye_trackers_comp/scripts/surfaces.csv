@@ -1,0 +1,5 @@
+name,id,width,height,widthR,heihtR
+Screen,0,1,1,2560,1440
+Right_Stock,1,14,24,208,368
+Assemly_Zone,2,20,24,304,368
+Left_Stock,3,14,24,208,368

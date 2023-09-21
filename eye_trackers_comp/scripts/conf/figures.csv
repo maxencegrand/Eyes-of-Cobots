@@ -1,0 +1,5 @@
+name,id,nSteps
+car,0,6
+house,1,9
+towers_cross,2,9
+towers_stairs_bridge,3,12

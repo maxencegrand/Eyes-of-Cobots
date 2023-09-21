@@ -1,0 +1,7 @@
+# Key Loger
+
+## Dependencies
+* pywin32
+* pyWinhook
+
+	pip install keyboard
