@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.6.5)  21 SEP 2023 15:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.6.5)  22 SEP 2023 14:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -837,69 +837,100 @@ Dictionary: translator-numbers-dictionary, Language: English
 ry-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 ) (./slide.nav)
-<figure.png, id=13, 1405.25pt x 552.0625pt>
+<figure.png, id=13, 1927.2pt x 1084.05pt>
 File: figure.png Graphic file (type png)
 <use figure.png>
-Package pdftex.def Info: figure.png  used on input line 18.
-(pdftex.def)             Requested size: 449.55354pt x 176.61305pt.
- [1
+Package pdftex.def Info: figure.png  used on input line 16.
+(pdftex.def)             Requested size: 449.55354pt x 252.86609pt.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./figure.png>]
-<step1.png, id=23, 1405.25pt x 552.0625pt>
+Overfull \vbox (9.79129pt too high) detected at line 16
+ []
+
+[1
+
+ <./figure.png>]
+<step1.png, id=22, 1927.2pt x 1084.05pt>
 File: step1.png Graphic file (type png)
 <use step1.png>
-Package pdftex.def Info: step1.png  used on input line 24.
-(pdftex.def)             Requested size: 449.55354pt x 176.61305pt.
- [2
+Package pdftex.def Info: step1.png  used on input line 20.
+(pdftex.def)             Requested size: 449.55354pt x 252.86609pt.
+
+Overfull \vbox (1.79129pt too high) detected at line 20
+ []
+
+[2
 
  <./step1.png>]
-<step2.png, id=30, 1405.25pt x 552.0625pt>
+<step2.png, id=29, 1927.2pt x 1084.05pt>
 File: step2.png Graphic file (type png)
 <use step2.png>
-Package pdftex.def Info: step2.png  used on input line 30.
-(pdftex.def)             Requested size: 449.55354pt x 176.61305pt.
- [3
+Package pdftex.def Info: step2.png  used on input line 24.
+(pdftex.def)             Requested size: 449.55354pt x 252.86609pt.
+
+Overfull \vbox (1.79129pt too high) detected at line 24
+ []
+
+[3
 
  <./step2.png>]
-<step3.png, id=37, 1405.25pt x 552.0625pt>
+<step3.png, id=36, 1927.2pt x 1084.05pt>
 File: step3.png Graphic file (type png)
 <use step3.png>
-Package pdftex.def Info: step3.png  used on input line 36.
-(pdftex.def)             Requested size: 449.55354pt x 176.61305pt.
- [4
+Package pdftex.def Info: step3.png  used on input line 28.
+(pdftex.def)             Requested size: 449.55354pt x 252.86609pt.
+
+Overfull \vbox (1.79129pt too high) detected at line 28
+ []
+
+[4
 
  <./step3.png>]
-<step4.png, id=44, 1405.25pt x 552.0625pt>
+<step4.png, id=43, 1927.2pt x 1084.05pt>
 File: step4.png Graphic file (type png)
 <use step4.png>
-Package pdftex.def Info: step4.png  used on input line 42.
-(pdftex.def)             Requested size: 449.55354pt x 176.61305pt.
+Package pdftex.def Info: step4.png  used on input line 32.
+(pdftex.def)             Requested size: 449.55354pt x 252.86609pt.
+
+Overfull \vbox (1.79129pt too high) detected at line 32
+ []
 
 [5
 
  <./step4.png>]
-<step5.png, id=51, 1405.25pt x 552.0625pt>
+<step5.png, id=50, 1927.2pt x 1084.05pt>
 File: step5.png Graphic file (type png)
 <use step5.png>
-Package pdftex.def Info: step5.png  used on input line 48.
-(pdftex.def)             Requested size: 449.55354pt x 176.61305pt.
- [6
+Package pdftex.def Info: step5.png  used on input line 36.
+(pdftex.def)             Requested size: 449.55354pt x 252.86609pt.
+
+Overfull \vbox (1.79129pt too high) detected at line 36
+ []
+
+[6
 
  <./step5.png>]
-<step6.png, id=58, 1405.25pt x 552.0625pt>
+<step6.png, id=57, 1927.2pt x 1084.05pt>
 File: step6.png Graphic file (type png)
 <use step6.png>
-Package pdftex.def Info: step6.png  used on input line 54.
-(pdftex.def)             Requested size: 449.55354pt x 176.61305pt.
- [7
+Package pdftex.def Info: step6.png  used on input line 40.
+(pdftex.def)             Requested size: 449.55354pt x 252.86609pt.
+
+Overfull \vbox (1.79129pt too high) detected at line 40
+ []
+
+[7
 
  <./step6.png>]
-<end.png, id=66, 1405.25pt x 552.0625pt>
+<end.png, id=65, 1927.2pt x 1084.05pt>
 File: end.png Graphic file (type png)
 <use end.png>
-Package pdftex.def Info: end.png  used on input line 60.
-(pdftex.def)             Requested size: 449.55354pt x 176.61305pt.
- [8
+Package pdftex.def Info: end.png  used on input line 44.
+(pdftex.def)             Requested size: 449.55354pt x 252.86609pt.
+
+Overfull \vbox (1.79129pt too high) detected at line 44
+ []
+
+[8
 
  <./end.png>]
 \tf@nav=\write6
@@ -911,28 +942,27 @@ Package pdftex.def Info: end.png  used on input line 60.
 \tf@snm=\write8
 \openout8 = `slide.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 62.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 62.
-
-(./slide.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 62.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 62.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 46.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 46.
+ (./slide.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 46.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 46.
 Package rerunfilecheck Info: File `slide.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 17697 strings out of 481239
- 337191 string characters out of 5920378
+ 17695 strings out of 481239
+ 337173 string characters out of 5920378
  583453 words of memory out of 5000000
- 32525 multiletter control sequences out of 15000+600000
+ 32524 multiletter control sequences out of 15000+600000
  533543 words of font info for 28 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  58i,11n,67p,831b,411s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb>
-Output written on slide.pdf (8 pages, 654887 bytes).
+
+Output written on slide.pdf (8 pages, 3833394 bytes).
 PDF statistics:
- 84 PDF objects out of 1000 (max. 8388607)
- 50 compressed objects within 1 object stream
+ 80 PDF objects out of 1000 (max. 8388607)
+ 47 compressed objects within 1 object stream
  17 named destinations out of 1000 (max. 500000)
  83 words of extra memory for PDF output out of 10000 (max. 10000000)
 
