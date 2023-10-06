@@ -1,2 +1,4 @@
 eye_trackers_comp/data/recordings/**/*.mp4
 eye_trackers_comp/data/recordings/**/*.mkv
+eye_trackers_comp/data/recordings\**\*.mp4
+eye_trackers_comp/data/recordings\**\*.mkv
