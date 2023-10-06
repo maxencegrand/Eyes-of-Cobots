@@ -3,17 +3,20 @@ from time import sleep
 from pupil_apriltags import Detector
 import progressbar
 import argparse# Create the parser
+from pathlib import Path
+
+DATAPATH = "Documents\\Eyes-of-Cobots\\eye_trackers_comp\\data\\recordings"
+PATH = ("%s\\%s" % (str(Path.home()), DATAPATH))
 
 parser = argparse.ArgumentParser()# Add an argument
 parser.add_argument('-camera', type=int, required=True)# Parse the argument
 parser.add_argument('-n', type=int, required=True)# Parse the argument
-parser.add_argument('-path', type=str, required=True)# Parse the argument
 parser.add_argument('-user', type=str, required=True)# Parse the argument
 parser.add_argument('-figure', type=str, required=True)# Parse the argument
 
 args = parser.parse_args()
 
-filename = "%s\%s\%s\scene.jpg" % (args.path, args.user, args.figure)
+filename = "%s\%s\%s\scene.jpg" % (PATH, args.user, args.figure)
 key = cv2.waitKey(1)
 webcam = cv2.VideoCapture(args.camera)
 webcam.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)

@@ -1,7 +1,7 @@
 import pandas as pd
 
-def _LOAD(csvfile):
-    return pd.DataFrame(data=pd.read_csv(csvfile))
+def _LOAD(csvfile, sep = ','):
+    return pd.DataFrame(data=pd.read_csv(csvfile, sep = sep, on_bad_lines='skip'))
 
 def _GET(table, id, key, keyId="id"):
     return _GET_ALL_VALUES(table, id, key, keyId=keyId)[0]

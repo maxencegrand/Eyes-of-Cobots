@@ -1,4 +1,5 @@
 import numpy as np
+import csv
 
 def centroid(coordinates):
     arr = np.asarray(coordinates)
@@ -27,3 +28,13 @@ def distance_min_block_corner(position, block_positions):
     dist = [distance(position, p) for p in block_positions]
     dist.append(distance(position, centroid(block_positions)))
     return min(dist)
+
+def get_csvfile(id, figure, type):
+    return "../data/%s_%s_%s.csv" % (id,type,figure)
+
+def write_csv(csvfile, data):
+    with open(csvfile, 'w', newline='') as csvfile:
+        spamwriter = csv.writer(csvfile, delimiter=',',\
+            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        for row in data:
+            spamwriter.writerow(row)

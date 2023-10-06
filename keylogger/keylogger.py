@@ -1,14 +1,20 @@
 import keyboard
 import time
 import csv
+from pathlib import Path
+import argparse# Create the parser
+
+
+DATAPATH = "Documents\\Eyes-of-Cobots\\eye_trackers_comp\\data"
+PATH = ("%s\\%s" % (str(Path.home()), DATAPATH))
 
 def timestamp():
     return int(round(time.time() * 1000))
 
 class Keylogger:
-    def __init__(self, filename="log.csv"):
+    def __init__(self, csvfile="log.csv"):
         self.log = []
-        self.filename = filename
+        self.csvfile = csvfile
 
     def callback(self, event):
         """
@@ -24,28 +30,33 @@ class Keylogger:
 
 
     def start(self):
-        # start the keylogger
         keyboard.on_release(callback=self.callback)
-        # start reporting the keylogs
-        # self.report()
-        # make a simple message
         print(f"{timestamp()} - Started keylogger")
-        # block the current thread, wait until CTRL+C is pressed
+        self.log.append([timestamp(), 0])
         keyboard.wait()
 
     def finish(self):
-        print("Write data to file %s ...\n" % self.filename)
-        with open(self.filename, 'w') as f:
+        print("Write data to file %s ...\n" % self.csvfile)
+        with open(self.csvfile, 'w',  newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(["Timestamp", "Slide"])
+            writer.writerow(["timestamp", "stepId"])
+            step = 0
             for row in self.log:
                 if (len(row) > 0):
-                    print(row)
-                    writer.writerow(row)
+                    step += row[1]
+                    print([row[0], step])
+                    writer.writerow([row[0], step])
         print("Done.\n")
 
 if __name__ == "__main__":
-    keylogger = Keylogger()
+    parser = argparse.ArgumentParser()# Add an argument
+    parser.add_argument('-user', type=str, required=True)# Parse the argument
+    parser.add_argument('-figure', type=str, required=True)# Parse the argument
+    args = parser.parse_args()
+
+    csvfile = ("%s\\%s_steps_%s.csv" % (PATH,args.user, args.figure))
+
+    keylogger = Keylogger(csvfile=csvfile)
     try:
         keylogger.start()
     except KeyboardInterrupt:

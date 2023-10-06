@@ -34,7 +34,7 @@ def draw_tags(tags, img_):
             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
 key = cv2. waitKey(1)
-webcam = cv2.VideoCapture(1)
+webcam = cv2.VideoCapture(0)
 webcam.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 webcam.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 sleep(2)

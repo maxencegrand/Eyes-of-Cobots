@@ -50,7 +50,7 @@ class Users:
 
     def get_position(self, id):
         return _GET(self.table,id, cst._KEY_USER_POSITION_ID, keyId=cst._KEY_USER_ID)
-        
+
     #
     def print_user_info(self,id):
         print()
@@ -59,7 +59,6 @@ class Users:
         print("\tScore : %f" % self.get_score(id))
         print("\tPosition ID : %d" % self.get_position(id))
         print("\tSetup ID : %d" % self.get_setup(id))
-        print("\tOrder ID : %d" % self.get_order(id))
 
     def print_all_users_info(self):
         for id in self.get_users_id_list():
@@ -87,6 +86,13 @@ class Figures:
 
     def get_figures_id_list(self):
         return _TOLIST(self.table, cst._KEY_FIGURE_ID)
+
+    def get_figure_id(self, name):
+        ids = _TOLIST(self.table, cst._KEY_FIGURE_ID)
+        for id in ids:
+            if(self.get_figure_name(id) == name):
+                return id
+        return -1
 
 class Surface:
     def __init__(self):

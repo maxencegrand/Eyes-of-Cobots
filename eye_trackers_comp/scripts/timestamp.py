@@ -1,4 +1,5 @@
 from time import time
 
 while True:
-    print(time()*1000)
+    timestamp = time()*1000
+    print("{}".format(timestamp))

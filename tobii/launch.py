@@ -7,6 +7,10 @@ from validation import validate
 from gazerecording import record
 import os
 import argparse# Create the parser
+from pathlib import Path
+
+DATAPATH = "Documents\\Eyes-of-Cobots\\eye_trackers_comp\\data\\recordings"
+PATH = ("%s\\%s" % (str(Path.home()), DATAPATH))
 
 class Tracker:
     def __init__(self, log = 0):
@@ -68,13 +72,12 @@ def continue_test(question, yes=True):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()# Add an argument
-    parser.add_argument('-path', type=str, required=True)# Parse the argument
     parser.add_argument('-user', type=str, required=True)# Parse the argument
     parser.add_argument('-figure', type=str, required=True)# Parse the argument
 
     args = parser.parse_args()
 
-    path_record = "%s\\%s\\%s" % (args.path, args.user, args.figure)
+    path_record = "%s\\%s\\%s" % (PATH, args.user, args.figure)
     tracker = Tracker()
     calibrator = Calibrator(tracker.tracker)
     do_calibration = True

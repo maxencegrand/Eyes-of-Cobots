@@ -112,11 +112,11 @@ class Recorder:
         print("Write data to file %s ...\n" % self.filename)
         self.tracker.unsubscribe_from(tr.EYETRACKER_GAZE_DATA,\
                                         self.gaze_data_callback)
-        with open(self.filename, 'w') as f:
+        with open(self.filename, 'w',  newline='') as f:
             writer = csv.writer(f)
             writer.writerow(all_data[0].keys())
             for row in all_data:
-                if len(row) > 0:
+                if len(list(row.values())) > 0:
                     writer.writerow(list(row.values()))
         print("Done.\n")
 
