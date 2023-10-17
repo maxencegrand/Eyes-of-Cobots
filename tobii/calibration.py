@@ -28,6 +28,7 @@ class Calibrator:
                                     (0.1, 0.9), (0.1,0.5), (0.1, 0.1),\
                                     (0.5, 0.1), (0.9, 0.1),\
                                     (0.9,0.5),  (0.9,0.9), (0.5, 0.9)]
+        # self.points_to_calibrate = [(0.5, 0.5),(0.1, 0.9), (0.1, 0.1),(0.9, 0.1),(0.9,0.9)]
         # self.points_to_calibrate = [(0.5, 0.5)]
         if eyetracker is None:
             sys.exit(1)
