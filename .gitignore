@@ -1,6 +1,10 @@
 eye_trackers_comp/data/recordings/**/*.mp4
 eye_trackers_comp/data/recordings/**/*.mkv
 eye_trackers_comp/data/recordings/**/*.avi
-eye_trackers_comp/data/recordings\**\*.mp4
-eye_trackers_comp/data/recordings\**\*.mkv
-eye_trackers_comp/data/recordings\**\*.avi
+eye_trackers_comp/data/recordings/**/*.eta
+eye_trackers_comp\data\recordings\**\*.mp4
+eye_trackers_comp\data\recordings\**\*.mkv
+eye_trackers_comp\data\recordings\**\*.avi
+eye_trackers_comp\data\recordings\**\*.eta
+eye_trackers_comp\demo\**\*.mkv
+eye_trackers_comp/demo/**/*.mkv
