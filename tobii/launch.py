@@ -3,7 +3,7 @@
 import tobii_research as tr
 import sys
 from calibration import Calibrator
-from validation import validate
+from validation_gui import validate
 from gazerecording import record
 import os
 import argparse# Create the parser
@@ -76,6 +76,15 @@ if __name__ == '__main__':
     parser.add_argument('-figure', type=str, required=True)# Parse the argument
 
     args = parser.parse_args()
+
+    if (not os.path.exists("%s\\%s\\%s" % (PATH, args.user, args.figure))):
+        print("User %s ou Figure %s doesn't exist" % (args.user, args.figure))
+        sys.exit(1)
+
+    # print(("%s\\%s\\%s\\instructions.csv" % (PATH, args.user, args.figure)))
+    if(os.path.isfile("%s\\%s\\%s\\instructions.csv" % (PATH, args.user, args.figure))):
+        if(not continue_test("\nInstruction.csv file already exist, delete it? (Y/n)")):
+            sys.exit(1)
 
     path_record = "%s\\%s\\%s" % (PATH, args.user, args.figure)
     tracker = Tracker()

@@ -56,6 +56,7 @@ class Calibrator:
         # Enter calibration mode.
         interop.calibration_enter_calibration_mode(self.eyetracker._EyeTracker__core_eyetracker)
         print("Entered calibration mode for eye tracker with serial number {0}.".format(self.eyetracker.serial_number))
+
         for point in self.points_to_calibrate:
             self.calibrate_point(point)
         print("Computing and applying calibration.")

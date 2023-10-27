@@ -25,24 +25,28 @@ class Screen():
         self.left = left
         self.width = width
         self.height = height
-
+        prev_ts = 0
+        ts = timestamp()
         with mss() as sct:
             while True:
-                screenShot = sct.grab({'top': self.top, 'left': self.left,
-                    'width': self.width, 'height': self.height})
-                img = Image.frombytes(
-                    'RGB',
-                    (screenShot.width, screenShot.height),
-                    screenShot.rgb,
-                )
-                img_ = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
-                self.draw_timestamps(img_)
-                self.draw_gazepoints(img_)
-                cv2.imshow('test', img_)
+                ts = timestamp()
+                if(ts - prev_ts > 100):
+                    screenShot = sct.grab({'top': self.top, 'left': self.left,
+                        'width': self.width, 'height': self.height})
+                    img = Image.frombytes(
+                        'RGB',
+                        (screenShot.width, screenShot.height),
+                        screenShot.rgb,
+                    )
+                    img_ = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
+                    self.draw_timestamps(img_)
+                    self.draw_gazepoints(img_)
+                    cv2.imshow('test', img_)
                 if cv2.waitKey(33) & 0xFF in (
                     ord('q'),
                     27,
                 ):
+                    cv2.destroyAllWindows()
                     break
 
     def draw_timestamps(self, img_):

@@ -12,11 +12,10 @@ parser = argparse.ArgumentParser()# Add an argument
 parser.add_argument('-camera', type=int, required=True)# Parse the argument
 parser.add_argument('-n', type=int, required=True)# Parse the argument
 parser.add_argument('-user', type=str, required=True)# Parse the argument
-parser.add_argument('-figure', type=str, required=True)# Parse the argument
 
 args = parser.parse_args()
 
-filename = "%s\%s\%s\scene.jpg" % (PATH, args.user, args.figure)
+filename = "%s\%s\scene.jpg" % (PATH, args.user)
 key = cv2.waitKey(1)
 webcam = cv2.VideoCapture(args.camera)
 webcam.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
