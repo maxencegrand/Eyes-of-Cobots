@@ -12,14 +12,22 @@ class Action:
     def get_name(self):
         return self.name
 
+    def __str__(self):
+        return self.get_name()
+
 table = _LOAD(CSVFILE)
 actions = {}
 
 for id in _TOLIST(table, KEY_ID):
-    actions[i] = Color(_GET(table, id, KEY_NAME))
+    actions[id] = Action(_GET(table, id, KEY_NAME))
 
 def get_name(id):
-    return actions[i].get_name()
+    return actions[id].get_name()
 
 def get_id_list():
-    return list(colors.heys())
+    return list(actions.keys())
+
+print("ACTIONS")
+for id in get_id_list():
+    print(actions[id])
+print()

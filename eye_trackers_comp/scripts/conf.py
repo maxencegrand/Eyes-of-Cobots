@@ -2,26 +2,26 @@ import constants as cst
 from table_loader import _GET, _LOAD, _TOLIST, _GET_ALL, _GET_ALL_VALUES, _ADD
 from utils import centroid
 
-class Position:
-    def __init__(self, top_left, top_right, bottom_right, bottom_left):
-        self.top_right = top_right
-        self.top_left = top_left
-        self.bottom_right = bottom_right
-        self.bottom_left = bottom_left
+# class Position:
+#     def __init__(self, top_left, top_right, bottom_right, bottom_left):
+#         self.top_right = top_right
+#         self.top_left = top_left
+#         self.bottom_right = bottom_right
+#         self.bottom_left = bottom_left
+#
+#     def center(self):
+#         return centroid([self.top_left, self.top_right,\
+#                             self.bottom_right, self.bottom_left])
 
-    def center(self):
-        return centroid([self.top_left, self.top_right,\
-                            self.bottom_right, self.bottom_left])
-
-class Block:
-    def __init__(self, color, shape, position, surface):
-        self.color = color
-        self.shape = shape
-        self.position = position
-        self.surface = surface
-
-    def center(self):
-        return self.position.center()
+# class Block:
+#     def __init__(self, color, shape, position, surface):
+#         self.color = color
+#         self.shape = shape
+#         self.position = position
+#         self.surface = surface
+#
+#     def center(self):
+#         return self.position.center()
 
 
 class Users:
@@ -64,35 +64,35 @@ class Users:
         for id in self.get_users_id_list():
             self.print_user_info(id)
 
-class Actions:
-    def __init__(self):
-        self.table = _LOAD(cst._ACTIONS_CSV)
+# class Actions:
+#     def __init__(self):
+#         self.table = _LOAD(cst._ACTIONS_CSV)
+#
+#     def get_action_name(self, id):
+#         return  _GET(self.table, id, cst._KEY_ACTION_NAME)
+#
+#     def get_actions_id_list(self):
+#         return _TOLIST(self.table, cst._KEY_ACTION_ID)
 
-    def get_action_name(self, id):
-        return  _GET(self.table, id, cst._KEY_ACTION_NAME)
-
-    def get_actions_id_list(self):
-        return _TOLIST(self.table, cst._KEY_ACTION_ID)
-
-class Figures:
-    def __init__(self):
-        self.table = _LOAD(cst._FIGURES_CSV)
-
-    def get_figure_name(self, id):
-        return  _GET(self.table, id, cst._KEY_FIGURE_NAME)
-
-    def get_figure_n_steps(self, id):
-        return  _GET(self.table, id, cst._KEY_FIGURE_STEPS)
-
-    def get_figures_id_list(self):
-        return _TOLIST(self.table, cst._KEY_FIGURE_ID)
-
-    def get_figure_id(self, name):
-        ids = _TOLIST(self.table, cst._KEY_FIGURE_ID)
-        for id in ids:
-            if(self.get_figure_name(id) == name):
-                return id
-        return -1
+# class Figures:
+#     def __init__(self):
+#         self.table = _LOAD(cst._FIGURES_CSV)
+#
+#     def get_figure_name(self, id):
+#         return  _GET(self.table, id, cst._KEY_FIGURE_NAME)
+#
+#     def get_figure_n_steps(self, id):
+#         return  _GET(self.table, id, cst._KEY_FIGURE_STEPS)
+#
+#     def get_figures_id_list(self):
+#         return _TOLIST(self.table, cst._KEY_FIGURE_ID)
+#
+#     def get_figure_id(self, name):
+#         ids = _TOLIST(self.table, cst._KEY_FIGURE_ID)
+#         for id in ids:
+#             if(self.get_figure_name(id) == name):
+#                 return id
+#         return -1
 
 class Surface:
     def __init__(self):

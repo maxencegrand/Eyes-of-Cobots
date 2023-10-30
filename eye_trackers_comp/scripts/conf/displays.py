@@ -13,30 +13,40 @@ class Display:
         self.width=width
         self.height=height
 
-    def get_normalized_coordinates(self, x, y):
-        return [float(x/self.width), float(y/self.height)]
+    def get_normalized_coordinates(self, point):
+        return [float(point.x/self.width), float(point.y/self.height)]
 
-    def get_absolute_coordinates(self, x, y):
-        return [float(x/self.width), float(y/self.height)]
+    def get_absolute_coordinates(self, point):
+        return [float(point.x*self.width), float(point.y*self.height)]
 
     def get_name(self):
         return self.name
+
+    def __str__(self):
+        return "%s (%f,%f)" % (self.get_name(), self.width, self.height)
+
 
 displays = {}
 table = _LOAD(CSVFILE)
 
 for id in _TOLIST(table, KEY_ID):
-    displays[i] = Display(_GET(table, id, KEY_NAME),\
+    displays[id] = Display(_GET(table, id, KEY_NAME),\
             _GET(table, id, KEY_WIDTH),_GET(table, id, KEY_HEIGHT))
 
-def get_absolute_coordinates(x,y,id):
-    return displays[i].get_absolute_coordinates(x,y)
 
-def get_normalized_coordinates(x,y,id):
-    return displays[i].get_absolute_coordinates(x,y)
+def get_absolute_coordinates(point,id):
+    return displays[id].get_absolute_coordinates(point)
+
+def get_normalized_coordinates(point,id):
+    return displays[id].get_absolute_coordinates(point)
 
 def get_name(id):
     return displays[i].get_name()
 
 def get_id_list():
-    return list(displays.heys())
+    return list(displays.keys())
+
+print("DISPLAYS")
+for id in get_id_list():
+    print(displays[id])
+print()
