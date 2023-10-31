@@ -1,9 +1,9 @@
-from position import create_position, get_vertical
-from point import Point
-from block import Block
+from conf.position import create_position, get_vertical
+from conf.point import Point
+from conf.block import Block
 from table_loader import _GET, _LOAD, _TOLIST, _GET_ALL, _GET_ALL_VALUES, _ADD
 
-CSVFILE = "csv/stock.csv"
+CSVFILE = "conf/csv/stock.csv"
 KEY_BLOCK = "blockId"
 KEY_SURFACE = "surfaceId"
 KEY_COLOR = "colorId"

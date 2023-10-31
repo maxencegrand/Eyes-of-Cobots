@@ -1,10 +1,12 @@
 import pandas as pd
 import csv
 import math
+from conf.point import Point
+from conf.gazepoint import Gazepoint, write_csv
 
 CSVFILE = {
-"Table" : "table_transposed.csv",
-"Screen" : "instructions_lifted.csv"
+"Table" : "table_norm.csv",
+"Screen" : "instructions_norm.csv"
 }
 
 def is_valid_coord(coord):
@@ -43,7 +45,7 @@ def get_gazepoints(df, steps_duration):
         if(is_valid_coord(point)):
             gazepoints[ts] = point
 
-    # Step -> (Timestamp -> (Float x Float))
+    # Timestamp -> (Float x Float)
     tmp = {}
     idx_ts = 0
     timestamps = list(gazepoints.keys())
@@ -53,12 +55,10 @@ def get_gazepoints(df, steps_duration):
 
         step_id = steps_duration.at[idx_steps,"stepId"]
 
-        tmp[step_id] = {}
-
         while(idx_ts < len(timestamps) and  timestamps[idx_ts] < begin_ts):
             idx_ts += 1
         while(idx_ts < len(timestamps) and  timestamps[idx_ts] < end_ts):
-            tmp[step_id][timestamps[idx_ts]] =gazepoints[timestamps[idx_ts]]
+            tmp[timestamps[idx_ts]] = gazepoints[timestamps[idx_ts]]
             idx_ts += 1
     gazepoints = tmp
     return gazepoints
@@ -73,25 +73,21 @@ def extract(id, figure, steps_duration):
     gazepoints_table = get_gazepoints(df_table, steps_duration)
 
     # Merge screen and table
-    # Step -> (Timestamp -> Display x (Float x Float))
+    # Timestamp -> Display x (Float x Float)
     gazepoints = {}
-    for step in list(gazepoints_screen.keys()):
-        tmp = {}
-        # Add screen data
-        for ts in gazepoints_screen[step].keys():
-            tmp[ts] = [0,gazepoints_screen[step][ts]]
-        # Add table data
-        for ts in gazepoints_table[step].keys():
-            tmp[ts] = [1,gazepoints_table[step][ts]]
-        gazepoints[step] = dict(sorted(tmp.items()))
+    tmp = {}
+    for ts in gazepoints_screen.keys():
+        pnt = gazepoints_screen[ts]
+        point = Point(pnt[0], pnt[1])
+        display = 0
+        tmp[ts] = Gazepoint(point, display, ts)
+    for ts in gazepoints_table.keys():
+        pnt = gazepoints_table[ts]
+        point = Point(pnt[0], pnt[1])
+        display = 0
+        tmp[ts] = Gazepoint(point, display, ts)
+    gazepoints = dict(sorted(tmp.items()))
 
     # Gazepoints
     csvfile = ("../data/%s/gazepoints_%s.csv" % (id,figure))
-    with open(csvfile, 'w', newline='') as csvfile:
-        spamwriter = csv.writer(csvfile, delimiter=',',
-                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        spamwriter.writerow(["stepId", "timestamp", "displayId", "x", "y"])
-        for step in list(gazepoints.keys()):
-            for ts in list(gazepoints[step].keys()):
-                spamwriter.writerow([step, ts, gazepoints[step][ts][0], \
-                        gazepoints[step][ts][1][0], gazepoints[step][ts][1][0]])
+    write_csv(csvfile, gazepoints)

@@ -1,8 +1,8 @@
 from table_loader import _GET, _LOAD, _TOLIST, _GET_ALL, _GET_ALL_VALUES, _ADD
 
 #Constants
-CSVFILE = "csv/users.csv"
-CSVFILE_PRETEST = "csv/users-pretest.csv"
+CSVFILE = "conf/csv/users.csv"
+CSVFILE_PRETEST = "conf/csv/users-pretest.csv"
 KEY_ID = "id"
 KEY_SETUP = "setup"
 KEY_POSITION = "position"

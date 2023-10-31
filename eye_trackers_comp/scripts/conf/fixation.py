@@ -1,7 +1,7 @@
 import csv
-import displays
+import conf.displays as displays
 import pandas as pd
-from point import Point
+from conf.point import Point
 
 KEY_TS = "timestamp"
 KEY_DISPLAY = "display"

@@ -4,12 +4,12 @@ import math
 DISPLAY = {
     0:"Screen",\
     1:"Table",\
-    -1:"No_Display"
+    -1:"No Data"
 }
 
 CSVFILE = {
-"Table" : "table_transposed.csv",
-"Screen" : "instructions_lifted.csv"
+"Table" : "table_norm.csv",
+"Screen" : "instructions_norm.csv"
 }
 
 def get_coord(str):

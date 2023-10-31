@@ -1,7 +1,7 @@
 from table_loader import _GET, _LOAD, _TOLIST, _GET_ALL, _GET_ALL_VALUES, _ADD
 
 #Constants
-CSVFILE = "csv/actions.csv"
+CSVFILE = "conf/csv/actions.csv"
 KEY_NAME = "name"
 KEY_ID = "id"
 

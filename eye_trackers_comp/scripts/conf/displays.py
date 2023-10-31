@@ -1,9 +1,9 @@
 from table_loader import _GET, _LOAD, _TOLIST, _GET_ALL, _GET_ALL_VALUES, _ADD
-from point import Point
+from conf.point import Point
 
 #Constants
-CSVFILE_DISPLAY = "csv/displays.csv"
-CSVFILE_SURFACES = "csv/surfaces.csv"
+CSVFILE_DISPLAY = "conf/csv/displays.csv"
+CSVFILE_SURFACES = "conf/csv/surfaces.csv"
 KEY_NAME = "name"
 KEY_ID = "id"
 KEY_WIDTH = "width"

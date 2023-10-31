@@ -1,4 +1,4 @@
-from point import centroid, Point
+from conf.point import centroid, Point
 
 def min(list):
     m = list[0]

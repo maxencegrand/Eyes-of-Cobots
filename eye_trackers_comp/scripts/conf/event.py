@@ -1,5 +1,5 @@
-from position import Position
-from block import Block
+from conf.position import Position
+from conf.block import Block
 
 class Event:
     def __init__(self, block, position, timestamp, is_correction=False):

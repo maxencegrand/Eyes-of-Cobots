@@ -1,7 +1,7 @@
 from table_loader import _GET, _LOAD, _TOLIST, _GET_ALL, _GET_ALL_VALUES, _ADD
 
 #Constants
-CSVFILE = "csv/figures.csv"
+CSVFILE = "conf/csv/figures.csv"
 KEY_NAME = "name"
 KEY_ID = "id"
 KEY_N_STEPS = "nSteps"
@@ -44,8 +44,3 @@ def get_figure_id(name):
         if(name == get_name(id)):
             return id
     return -1
-
-print("FIGURES")
-for id in get_id_list():
-    print(figures[id])
-print()
