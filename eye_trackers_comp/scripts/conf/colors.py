@@ -26,8 +26,3 @@ def get_name(id):
 
 def get_id_list():
     return list(colors.keys())
-
-print("COLORS")
-for id in get_id_list():
-    print(colors[id])
-print()

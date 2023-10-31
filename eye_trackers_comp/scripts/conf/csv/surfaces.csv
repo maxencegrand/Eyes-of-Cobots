@@ -1,4 +1,4 @@
-name,id,width,height,widthR,heightR
-Right_Stock,1,14,24,221.2,379.2
-Assemly_Zone,2,20,24,316,379.2
-Left_Stock,0,14,24,221.2,379.2
+name,id,width,height,x,y
+"Right Stock",1,14,24,0,0
+"Assemly Zone",2,20,24,14,0
+"Left Stock",0,14,24,34,0
