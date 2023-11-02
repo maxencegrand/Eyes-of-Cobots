@@ -1,8 +1,8 @@
 import csv
 import conf.displays as displays
-from conf.gazepoint import Gazepoint
+from conf.gazepoint import Gazepoint, centroid
 import pandas as pd
-from conf.point import Point, centroid, vectorize
+from conf.point import Point, vectorize
 from scipy.spatial.distance import pdist
 import numpy as np
 
@@ -11,82 +11,108 @@ KEY_X = "x"
 KEY_Y = "y"
 KEY_DURATION = "duration"
 KEY_DISPERSION = "dispersion"
+KEY_SIZE = "size"
 
 class FixationDetector:
-    def __init__(self, min_duration=100, max_duration=300, max_dispersion=10):
+    def __init__(self, min_duration=100, max_duration=300, max_dispersion=.1):
         self.min_duration = min_duration
         self.max_duration = max_duration
         self.max_dispersion = max_dispersion
         self.history = {}
         self.oldest_ts = -1
 
+    def oldest_timestamp(self):
+        return list(self.history.keys())[0]
+
+    def newest_timestamp(self):
+        return list(self.history.keys())[self.size()-1]
+
+    def duration(self):
+        return self.newest_timestamp() - self.oldest_timestamp()
+
+    def size(self):
+        return len(self.history)
+
+    def sort_history(self):
+        self.history = dict(sorted(self.history.items()))
+
+    def remove_oldest(self):
+        ts_to_remove = self.oldest_timestamp()
+        del(self.history[ts_to_remove])
+        self.sort_history()
+
+    def add(self, gazepoint):
+        self.history[gazepoint.timestamp] = gazepoint
+        self.sort_history()
+
+    def dispersion(self):
+        if(self.size() == 1):
+            return 0
+        return gaze_dispersion(list(self.history.values()))
+
+    def center(self):
+        return centroid(list(self.history.values()))
+
     def add_gazepoint(self, gazepoint):
         #Add the new gazepoint
-        self.history[gazepoint.timestamp] = gazepoint
+        self.add(gazepoint)
 
-        timestamps = list(self.history.keys())
-        dur = timestamps[len(timestamps)-1] - timestamps[0]
         # remove too old gazepoints
-        while(dur > self.max_duration):
-            ts_to_remove = timestamps[0]
-            del(self.history[ts_to_remove])
-            timestamps = list(self.history.keys())
-            dur = timestamps[len(timestamps)-1] - timestamps[0]
+        while(self.duration() > self.max_duration):
+            self.remove_oldest()
 
-        if(dur >= self.min_duration):
+        if(self.size() >= 2 and self.duration() >= self.min_duration):
             return self.extract_fixation()
+
         return None
 
     def extract_fixation(self):
-        timestamps = list(self.history.keys())
-        dur = timestamps[len(timestamps)-1] - timestamps[0]
-        timestamp = timestamps[0]
-        gazepoints = []
-        for ts in timestamps:
-            gazepoints.append(self.history[ts])
-        center = centroid(gazepoints)
-        dispersion = gaze_dispersion(gazepoints)
-        if(dispersion <= self.max_dispersion):
-            return Fixation(center, dispersion, timestamp, duration, gazepoints)
-        return Fixation(center, dispersion, timestamp, duration, gazepoints)
+        if(self.dispersion() <= self.max_dispersion):
+            return Fixation(\
+                    self.center(),\
+                    self.dispersion(),\
+                    self.oldest_timestamp(),\
+                    self.duration(),\
+                    self.size())
+        return None
 
 class Fixation:
-    def __init__(self, point, dispersion, timestamp, duration, gazepoints):
+    def __init__(self, point, dispersion, timestamp, duration, size):
         self.point = point
         self.dispersion = dispersion
         self.timestamp = timestamp
         self.duration = duration
-        self.gazepoints = gazepoints
+        self.size = size
 
     def __init(self, gazepoints, timestamp, duration, display):
-        self.gazepoints = gazepoints
         self.timestamp = timestamp
         self.duration = duration
         self.point = centroid(gazepoints)
+        self.size = len(gazepoints)
 
-    def distance(another_point):
+    def distance(self, another_point):
         return self.point.distance(timestamp)
 
     def __str__(self):
         str = f"{self.point} "
-        str +=  f"on {displays.get_display(self.display).get_name()} "
         str += f"at {self.timestamp} and lasts {self.duration}ms"
+        str += f" ( {self.size} gazepoints)"
         return str
 
 def write_csv(csvfile, fixations):
     rows = []
     for ts in list(fixations.keys()):
         rows.append([\
-            ts,\
-            fixations[ts].display, \
-            fixations[ts].point.x, fixations[ts].point.y],\
+            fixations[ts].timestamp, \
+            fixations[ts].point.x,\
+            fixations[ts].point.y,\
             fixations[ts].duration,\
-            fixation[ts].dispersion)
+            fixations[ts].dispersion,\
+            fixations[ts].size])
     with open(csvfile, 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=',',
                                 quotechar='\"', quoting=csv.QUOTE_MINIMAL)
-        spamwriter.writerow([KEY_TS, KEY_DISPLAY, KEY_X, KEY_Y,\
-                        KEY_DURATION, KEY_DISPERSION])
+        spamwriter.writerow([KEY_TS, KEY_X, KEY_Y, KEY_DURATION, KEY_DISPERSION, KEY_SIZE])
         for row in rows:
             spamwriter.writerow(row)
 
@@ -98,15 +124,15 @@ def read_csv(csvfile):
         point = Point(float(df.at[idx, KEY_X]), float(df.at[idx, KEY_Y]))
         display = int(df.at[idx, KEY_DISPLAY])
         dispersion = float(df.at[idx, KEY_DISPERSION])
-        duration = int(df.at[idx, KEY_DURATION])
-        fixations[ts] = Fixation(point, dispersion, ts, duration, display)
+        size = float(df.at[idx, KEY_SIZE])
+        fixations[ts] = Fixation(point, dispersion, ts, display)
     return fixations
 
 def extract_all_fixations(\
-        gazepoints, min_duration=100, max_duration=300, max_dispersion=10):
+        gazepoints, min_duration=100, max_duration=500, max_dispersion=.1):
     fixations = {}
     detector = FixationDetector(min_duration, max_duration, max_dispersion)
-    timestamps = list(self.history.keys())
+    timestamps = list(gazepoints.keys())
     for ts in timestamps:
         fixation = detector.add_gazepoint(gazepoints[ts])
         if not fixation is None:

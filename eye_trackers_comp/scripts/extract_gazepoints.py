@@ -86,7 +86,6 @@ def extract(id, figure, steps_duration):
         point = Point(pnt[0], pnt[1])
         tmp[ts] = Gazepoint(point, ts)
     gazepoints_table = dict(sorted(tmp.items()))
-    gazepoints = dict(sorted(tmp.items()))
 
     # Gazepoints
     csvfile = ("../data/%s/gazepoints_table_%s.csv" % (id,figure))

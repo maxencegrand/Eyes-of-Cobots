@@ -1,7 +1,7 @@
 import csv
 import conf.displays as displays
 import pandas as pd
-from conf.point import Point
+import conf.point
 
 KEY_TS = "timestamp"
 KEY_X = "x"
@@ -12,8 +12,11 @@ class Gazepoint:
         self.point = point
         self.timestamp = timestamp
 
-    def distance(another_point):
+    def distance(self, another_point):
         return self.point.distance(timestamp)
+
+    def get_vector(self):
+        return self.point.get_vector()
 
     def __str__(self):
         str = f"{self.point} "
@@ -37,6 +40,12 @@ def read_csv(csvfile):
     df = pd.DataFrame(data=pd.read_csv (csvfile))
     for idx in df.index:
         ts = int(df.at[idx, KEY_TS])
-        point = Point(float(df.at[idx, KEY_X]), float(df.at[idx, KEY_Y]))
+        point = conf.point.Point(float(df.at[idx, KEY_X]), float(df.at[idx, KEY_Y]))
         gazepoints[ts] = Gazepoint(point, display, ts)
     return gazepoints
+
+def centroid(gazepoints):
+    points=[]
+    for gz in gazepoints:
+        points.append(gz.point)
+    return conf.point.centroid(points)

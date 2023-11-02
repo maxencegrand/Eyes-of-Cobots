@@ -28,4 +28,4 @@ def vectorize(points):
     vector = []
     for p in points:
         vector.append(p.get_vector())
-    return no.array(vector)
+    return np.array(vector)

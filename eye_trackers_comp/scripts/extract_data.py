@@ -39,6 +39,13 @@ def extract(id, figure):
     gazepoints = pd.DataFrame(data=pd.read_csv (csvfile))
     print(gazepoints)
 
+    fx.extract(id,figure,steps_durations)
+    csvfile = ("../data/%s/fixations_screen_%s.csv" % (id,figure))
+    fixations = pd.DataFrame(data=pd.read_csv (csvfile))
+    print(fixations)
+    csvfile = ("../data/%s/fixations_table_%s.csv" % (id,figure))
+    fixations = pd.DataFrame(data=pd.read_csv (csvfile))
+    print(fixations)
     # fx.extract(id,figure,steps_durations)
     # csvfile = ("../data/%s/fixations_%s.csv" % (id,figure))
     # fixations = pd.DataFrame(data=pd.read_csv (csvfile))
