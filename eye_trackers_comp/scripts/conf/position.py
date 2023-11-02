@@ -39,12 +39,12 @@ class Position:
         return min(distances)
 
     def __str__(self):
-        str = "("
+        str = "["
         str += f"{self.top_left},"
         str += f"{self.top_right},"
         str += f"{self.bottom_right},"
         str += f"{self.bottom_left}"
-        str += f") in {self.surface}"
+        str += f"] in {self.surface}"
         return str
 
 def is_horizontal(horizontal):

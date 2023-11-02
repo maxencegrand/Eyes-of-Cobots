@@ -1,6 +1,7 @@
 import pandas as pd
 import csv
 import math
+
 DISPLAY = {
     0:"Screen",\
     1:"Table",\
@@ -34,12 +35,11 @@ def get_display_interval(is_on_display, display_id, steps_durations):
     tmp = {}
     idx_ts = 0
     timestamps = list(is_on_display.keys())
-    for idx_steps in steps_durations.index:
+    for idx_steps in range(len(steps_durations)):
         # begin and end timestamp of the step
-        begin_ts = steps_durations.at[idx_steps,"timestamp"]
-        end_ts = steps_durations.at[idx_steps,"duration"] + begin_ts
-
-        step_id = steps_durations.at[idx_steps,"stepId"]
+        begin_ts = steps_durations[idx_steps].begin
+        end_ts = steps_durations[idx_steps].end
+        step_id = steps_durations[idx_steps].id
 
         tmp[step_id] = {}
 

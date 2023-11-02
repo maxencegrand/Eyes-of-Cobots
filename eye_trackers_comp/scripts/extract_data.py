@@ -6,50 +6,42 @@ import mobile_transposer as mobile
 from conf.users import Users
 import conf.figures as figures
 import math
+from conf.step import read_csv
 import extract_duration as duration
 import extract_display as display
 import extract_gazepoints as gz
 import extract_fixations as fx
+import extract_distance as distance
+import extract_events as ev
 
 
 def extract(id, figure):
-    csvfile = ("../data/%s/event_%s.csv" % (id,figure))
-    events = pd.DataFrame(data=pd.read_csv (csvfile))
-    print (events)
-
     csvfile = ("../data/%s/step_%s.csv" % (id,figure))
     steps = pd.DataFrame(data=pd.read_csv (csvfile))
-    print (steps)
 
-    duration.extract(id,figure,steps)
+    duration.extract(id, figure, steps)
     csvfile = ("../data/%s/steps_duration_%s.csv" % (id,figure))
     steps_durations = pd.DataFrame(data=pd.read_csv (csvfile))
-    print(steps_durations)
+    steps = read_csv(csvfile)
 
-    display.extract(id,figure,steps_durations)
+    display.extract(id, figure, steps)
     csvfile = ("../data/%s/displays_%s.csv" % (id,figure))
     display_durations = pd.DataFrame(data=pd.read_csv (csvfile))
-    print(display_durations)
 
-    gz.extract(id,figure,steps_durations)
+    gz.extract(id,figure, steps)
     csvfile = ("../data/%s/gazepoints_screen_%s.csv" % (id,figure))
     gazepoints = pd.DataFrame(data=pd.read_csv (csvfile))
-    print(gazepoints)
     csvfile = ("../data/%s/gazepoints_table_%s.csv" % (id,figure))
     gazepoints = pd.DataFrame(data=pd.read_csv (csvfile))
-    print(gazepoints)
 
-    fx.extract(id,figure,steps_durations)
+    fx.extract(id,figure, steps)
     csvfile = ("../data/%s/fixations_screen_%s.csv" % (id,figure))
     fixations = pd.DataFrame(data=pd.read_csv (csvfile))
-    print(fixations)
     csvfile = ("../data/%s/fixations_table_%s.csv" % (id,figure))
     fixations = pd.DataFrame(data=pd.read_csv (csvfile))
-    print(fixations)
-    # fx.extract(id,figure,steps_durations)
-    # csvfile = ("../data/%s/fixations_%s.csv" % (id,figure))
-    # fixations = pd.DataFrame(data=pd.read_csv (csvfile))
-    # print(fixations)
+
+    events = ev.extract(id, figure, steps)
+    distance.extract(id, figure, steps, events)
 
 def main(argv):
     print("Extracting data ...")

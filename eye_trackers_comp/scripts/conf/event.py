@@ -6,6 +6,7 @@ class Event:
         self.block = block
         self.position = position
         self.is_correction = is_correction
+        self.timestamp = timestamp
 
     def distance_from_center(point):
         return self.position.distance_from_center(point)
@@ -19,10 +20,18 @@ class Pick(Event):
         Event.__init__(self, block, origin, timestamp,\
                 is_correction=is_correction)
 
+    def __str__(self):
+        str = f"Pick {self.block} from {self.position} at {self.timestamp}"
+        return str
+
 class Place(Event):
     def __init__(self, block, destination, timestamp, is_correction=False):
         Event.__init__(self, block, destination, timestamp,\
                 is_correction=is_correction)
+
+    def __str__(self):
+        str = f"Place {self.block} to {self.position} at {self.timestamp}"
+        return str
 
 def create_event(action_name, block, position, timestamp, is_correction=False):
     if(action_name == "pick"):

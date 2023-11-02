@@ -1,7 +1,7 @@
 from conf.position import Position
 from conf.point import Point
 from table_loader import _GET, _LOAD, _TOLIST, _GET_ALL, _GET_ALL_VALUES, _ADD
-import colors
+import conf.colors as colors
 
 class Block:
     def __init__(self, color, shape):

@@ -38,7 +38,7 @@ class Stock:
         for id in [0,1,2]:
             for shape in [0,1]:
                 for color in [0,1,2,3]:
-                    str += (f"{self.get_block(id,shape,color)}")
+                    str += (f"{self.get_block(id,shape,color)} ")
                     str += (f"at {self.get_position(id,shape,color)}\n")
         return str
 

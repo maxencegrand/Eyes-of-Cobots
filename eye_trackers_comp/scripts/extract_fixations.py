@@ -50,11 +50,11 @@ def get_gazepoints(df, steps_duration):
     tmp = {}
     idx_ts = 0
     timestamps = list(gazepoints.keys())
-    for idx_steps in steps_duration.index:
-        begin_ts = steps_duration.at[idx_steps,"timestamp"]
-        end_ts = steps_duration.at[idx_steps,"duration"] + begin_ts
-
-        step_id = steps_duration.at[idx_steps,"stepId"]
+    for idx_steps in range(len(steps_duration)):
+        # begin and end timestamp of the step
+        begin_ts = steps_duration[idx_steps].begin
+        end_ts = steps_duration[idx_steps].end
+        step_id = steps_duration[idx_steps].id
 
         while(idx_ts < len(timestamps) and  timestamps[idx_ts] < begin_ts):
             idx_ts += 1

@@ -1,4 +1,5 @@
 import csv
+from conf.step import Step, write_csv
 
 def extract(id, figure, events):
     data = []
@@ -7,13 +8,8 @@ def extract(id, figure, events):
         idx_next_step = events.index[i+1]
         begin_ts = events.at[idx_current_step,"timestamp"]
         end_ts = events.at[idx_next_step,"timestamp"]
-        data.append([events.at[idx_current_step,"stepId"],
-            begin_ts,\
-            (end_ts-begin_ts)])
+        step = Step(events.at[idx_current_step,"stepId"], begin_ts, end_ts)
+        data.append(step)
+
     csvfile = ("../data/%s/steps_duration_%s.csv" % (id,figure))
-    with open(csvfile, 'w', newline='') as csvfile:
-        spamwriter = csv.writer(csvfile, delimiter=',',
-                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        spamwriter.writerow(["stepId", "timestamp", "duration"])
-        for row in data:
-            spamwriter.writerow(row)
+    write_csv(data, csvfile)

@@ -1,4 +1,4 @@
-stepId,timestamp,duration
+id,timestamp,duration
 0,1698048064077,9674
 1,1698048073751,5001
 2,1698048078752,3933
