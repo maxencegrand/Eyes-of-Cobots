@@ -74,20 +74,22 @@ def extract(id, figure, steps_duration):
 
     # Merge screen and table
     # Timestamp -> Display x (Float x Float)
-    gazepoints = {}
     tmp = {}
     for ts in gazepoints_screen.keys():
         pnt = gazepoints_screen[ts]
         point = Point(pnt[0], pnt[1])
-        display = 0
-        tmp[ts] = Gazepoint(point, display, ts)
+        tmp[ts] = Gazepoint(point, ts)
+    gazepoints_screen = dict(sorted(tmp.items()))
+    tmp = {}
     for ts in gazepoints_table.keys():
         pnt = gazepoints_table[ts]
         point = Point(pnt[0], pnt[1])
-        display = 0
-        tmp[ts] = Gazepoint(point, display, ts)
+        tmp[ts] = Gazepoint(point, ts)
+    gazepoints_table = dict(sorted(tmp.items()))
     gazepoints = dict(sorted(tmp.items()))
 
     # Gazepoints
-    csvfile = ("../data/%s/gazepoints_%s.csv" % (id,figure))
-    write_csv(csvfile, gazepoints)
+    csvfile = ("../data/%s/gazepoints_table_%s.csv" % (id,figure))
+    write_csv(csvfile, gazepoints_table)
+    csvfile = ("../data/%s/gazepoints_screen_%s.csv" % (id,figure))
+    write_csv(csvfile, gazepoints_screen)

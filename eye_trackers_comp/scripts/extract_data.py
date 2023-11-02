@@ -32,14 +32,17 @@ def extract(id, figure):
     print(display_durations)
 
     gz.extract(id,figure,steps_durations)
-    csvfile = ("../data/%s/gazepoints_%s.csv" % (id,figure))
+    csvfile = ("../data/%s/gazepoints_screen_%s.csv" % (id,figure))
+    gazepoints = pd.DataFrame(data=pd.read_csv (csvfile))
+    print(gazepoints)
+    csvfile = ("../data/%s/gazepoints_table_%s.csv" % (id,figure))
     gazepoints = pd.DataFrame(data=pd.read_csv (csvfile))
     print(gazepoints)
 
-    fx.extract(id,figure,steps_durations)
-    csvfile = ("../data/%s/fixations_%s.csv" % (id,figure))
-    fixations = pd.DataFrame(data=pd.read_csv (csvfile))
-    print(fixations)
+    # fx.extract(id,figure,steps_durations)
+    # csvfile = ("../data/%s/fixations_%s.csv" % (id,figure))
+    # fixations = pd.DataFrame(data=pd.read_csv (csvfile))
+    # print(fixations)
 
 def main(argv):
     print("Extracting data ...")

@@ -64,15 +64,15 @@ class Transposer:
 
 
 def transpose(user, figure):
-    DATAPATH = "Documents\\Eyes-of-Cobots\\eye_trackers_comp\\data\\recordings"
-    PATH = ("%s\\%s" % (str(Path.home()), DATAPATH))
-    
+    DATAPATH = "Documents/Eyes-of-Cobots/eye_trackers_comp/data/recordings"
+    PATH = ("%s/%s" % (str(Path.home()), DATAPATH))
+
     # Read table coordinates
     NO = []
     SO = []
     NE = []
     SE = []
-    table_coord = "%s\\%s\\table_coordinates.csv" % (PATH, user)
+    table_coord = "%s/%s/table_coordinates.csv" % (PATH, user)
     with open(table_coord, newline='') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
         for row in spamreader:
@@ -96,7 +96,7 @@ def transpose(user, figure):
             "right_validity"]]
 
     # Initial Fovio data
-    datacsv = "%s\\%s\\%s\\table.csv" % (PATH, user, figure)
+    datacsv = "%s/%s/%s/table.csv" % (PATH, user, figure)
     df = pd.DataFrame(data=pd.read_csv(datacsv, sep = "\t", on_bad_lines='skip'))
 
     # Transpose Fovio data
@@ -118,7 +118,7 @@ def transpose(user, figure):
                     0,0])
 
     # Transposed Fovio data CSV file
-    data_transposed = "%s\\%s\\%s\\table_norm.csv" % (PATH, user, figure)
+    data_transposed = "%s/%s/%s/table_norm.csv" % (PATH, user, figure)
 
     # Write data in csv file
     with open(data_transposed, 'w',  newline='') as f:

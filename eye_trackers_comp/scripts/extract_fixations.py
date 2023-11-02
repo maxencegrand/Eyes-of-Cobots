@@ -3,7 +3,7 @@ import csv
 import math
 from conf.point import Point
 from conf.gazepoint import Gazepoint
-from conf.fixation import write_csv, create_fixations
+from conf.fixation import write_csv, extract_all_fixations
 
 CSVFILE = {
 "Table" : "table_norm.csv",
@@ -70,25 +70,25 @@ def extract(id, figure, steps_duration):
     csvfile = ("../data/recordings/%s/%s/%s" % (id,figure,CSVFILE["Table"]))
     df_table = pd.DataFrame(data=pd.read_csv (csvfile))
 
-    gazepoints_screen = create_fixations(get_gazepoints(df_screen, steps_duration))
-    gazepoints_table = create_fixations(get_gazepoints(df_table, steps_duration))
+    gazepoints_screen = extract_all_fixations(get_gazepoints(df_screen, steps_duration))
+    gazepoints_table = extract_all_fixations(get_gazepoints(df_table, steps_duration))
 
     # Merge screen and table
     # Timestamp -> Display x (Float x Float)
-    gazepoints = {}
-    tmp = {}
-    for ts in gazepoints_screen.keys():
-        pnt = gazepoints_screen[ts]
-        point = Point(pnt[0], pnt[1])
-        display = 0
-        tmp[ts] = Gazepoint(point, display, ts)
-    for ts in gazepoints_table.keys():
-        pnt = gazepoints_table[ts]
-        point = Point(pnt[0], pnt[1])
-        display = 0
-        tmp[ts] = Gazepoint(point, display, ts)
-    gazepoints = dict(sorted(tmp.items()))
-
-    # Gazepoints
-    csvfile = ("../data/%s/fixations_%s.csv" % (id,figure))
-    write_csv(csvfile, gazepoints)
+    # gazepoints = {}
+    # tmp = {}
+    # for ts in gazepoints_screen.keys():
+    #     pnt = gazepoints_screen[ts]
+    #     point = Point(pnt[0], pnt[1])
+    #     display = 0
+    #     tmp[ts] = Gazepoint(point, display, ts)
+    # for ts in gazepoints_table.keys():
+    #     pnt = gazepoints_table[ts]
+    #     point = Point(pnt[0], pnt[1])
+    #     display = 0
+    #     tmp[ts] = Gazepoint(point, display, ts)
+    # gazepoints = dict(sorted(tmp.items()))
+    #
+    # # Gazepoints
+    # csvfile = ("../data/%s/fixations_%s.csv" % (id,figure))
+    # write_csv(csvfile, gazepoints)

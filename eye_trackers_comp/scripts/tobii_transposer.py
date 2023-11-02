@@ -8,11 +8,11 @@ def get_coord(str):
     return [float(x) for x in str.strip("(')").split(", ")]
 
 def transpose(user, figure):
-    DATAPATH = "Documents\\Eyes-of-Cobots\\eye_trackers_comp\\data\\recordings"
-    PATH = ("%s\\%s" % (str(Path.home()), DATAPATH))
+    DATAPATH = "Documents/Eyes-of-Cobots/eye_trackers_comp/data/recordings"
+    PATH = ("%s/%s" % (str(Path.home()), DATAPATH))
 
     # Open Tobii data csv
-    data = "%s\\%s\\%s\\instructions.csv" % \
+    data = "%s/%s/%s/instructions.csv" % \
             (PATH, user, figure)
 
     # Read csv file
@@ -39,7 +39,7 @@ def transpose(user, figure):
                     val_left, val_right])
 
     # Write Lifted Tobii data
-    data_lifted = "%s\\%s\\%s\\instructions_norm.csv" % \
+    data_lifted = "%s/%s/%s/instructions_norm.csv" % \
             (PATH, user, figure)
 
     with open(data_lifted , 'w',  newline='') as f:
