@@ -4,7 +4,6 @@ import sys, getopt
 import csv
 from pathlib import Path
 import argparse# Create the parser
-import constants as cst
 
 DATAPATH = "Documents\\Eyes-of-Cobots\\eye_trackers_comp\\data"
 PATH = ("%s\\%s" % (str(Path.home()), DATAPATH))
@@ -20,7 +19,7 @@ def main():
 
     # current_step = 0
     # actions = []
-    csvfile = ("%s\\%s_event_%s.csv" % (PATH,args.user, args.figure))
+    csvfile = ("%s\\%s\\%s\\event.csv" % (PATH,args.user, args.figure))
     data = []
 
     print("Welcome to the event annotation module")

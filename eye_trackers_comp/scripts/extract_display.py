@@ -9,8 +9,8 @@ DISPLAY = {
 }
 
 CSVFILE = {
-"Table" : "table_norm.csv",
-"Screen" : "instructions_norm.csv"
+"Table" : "table2.csv",
+"Screen" : "instructions2.csv"
 }
 
 def get_coord(str):
@@ -110,10 +110,10 @@ def get_data_display(df, display_id, steps_durations):
     return is_on
 
 def extract(id, figure, steps_durations):
-    csvfile = ("../data/recordings/%s/%s/%s" % (id,figure,CSVFILE["Screen"]))
+    csvfile = ("../data/%s/%s/%s" % (id,figure,CSVFILE["Screen"]))
     df_screen = pd.DataFrame(data=pd.read_csv (csvfile))
     idx_screen = 0
-    csvfile = ("../data/recordings/%s/%s/%s" % (id,figure,CSVFILE["Table"]))
+    csvfile = ("../data/%s/%s/%s" % (id,figure,CSVFILE["Table"]))
     df_table = pd.DataFrame(data=pd.read_csv (csvfile))
     idx_table = 0
 
@@ -127,7 +127,7 @@ def extract(id, figure, steps_durations):
                 dict(sorted({**is_on_screen[step], **is_on_table[step]}.items()))
 
     # Display durations
-    csvfile = ("../data/%s/displays_%s.csv" % (id,figure))
+    csvfile = ("../data/%s/%s/displays.csv" % (id,figure))
     with open(csvfile, 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=',',
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)

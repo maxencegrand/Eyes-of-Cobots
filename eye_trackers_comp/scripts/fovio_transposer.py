@@ -66,6 +66,8 @@ class Transposer:
 def transpose(user, figure):
     DATAPATH = "Documents/Eyes-of-Cobots/eye_trackers_comp/data/recordings"
     PATH = ("%s/%s" % (str(Path.home()), DATAPATH))
+    DATAPATH2 = "Documents/Eyes-of-Cobots/eye_trackers_comp/data"
+    PATH2 = ("%s/%s" % (str(Path.home()), DATAPATH2))
 
     # Read table coordinates
     NO = []
@@ -118,7 +120,7 @@ def transpose(user, figure):
                     0,0])
 
     # Transposed Fovio data CSV file
-    data_transposed = "%s/%s/%s/table_norm.csv" % (PATH, user, figure)
+    data_transposed = "%s/%s/%s/table2.csv" % (PATH2, user, figure)
 
     # Write data in csv file
     with open(data_transposed, 'w',  newline='') as f:

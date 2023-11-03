@@ -6,8 +6,8 @@ from conf.gazepoint import Gazepoint
 from conf.fixation import write_csv, extract_all_fixations
 
 CSVFILE = {
-"Table" : "table_norm.csv",
-"Screen" : "instructions_norm.csv"
+"Table" : "table2.csv",
+"Screen" : "instructions2.csv"
 }
 
 def is_valid_coord(coord):
@@ -65,9 +65,9 @@ def get_gazepoints(df, steps_duration):
     return gazepoints
 
 def extract(id, figure, steps_duration):
-    csvfile = ("../data/recordings/%s/%s/%s" % (id,figure,CSVFILE["Screen"]))
+    csvfile = ("../data/%s/%s/%s" % (id,figure,CSVFILE["Screen"]))
     df_screen = pd.DataFrame(data=pd.read_csv (csvfile))
-    csvfile = ("../data/recordings/%s/%s/%s" % (id,figure,CSVFILE["Table"]))
+    csvfile = ("../data/%s/%s/%s" % (id,figure,CSVFILE["Table"]))
     df_table = pd.DataFrame(data=pd.read_csv (csvfile))
 
     gazepoints_screen = get_gazepoints(df_screen, steps_duration)
@@ -89,7 +89,7 @@ def extract(id, figure, steps_duration):
     gazepoints_table = dict(sorted(tmp.items()))
 
     # Gazepoints
-    csvfile = ("../data/%s/fixations_screen_%s.csv" % (id,figure))
+    csvfile = ("../data/%s/%s/fixations_screen.csv" % (id,figure))
     write_csv(csvfile, extract_all_fixations(gazepoints_screen))
-    csvfile = ("../data/%s/fixations_table_%s.csv" % (id,figure))
+    csvfile = ("../data/%s/%s/fixations_table.csv" % (id,figure))
     write_csv(csvfile, extract_all_fixations(gazepoints_table))

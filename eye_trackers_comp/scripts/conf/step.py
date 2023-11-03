@@ -80,6 +80,7 @@ def get_step_event_from_timestamp(timestamp, step_events):
 
 def get_event(timestamp, action, step_events):
     se = get_step_event_from_timestamp(timestamp, step_events)
+    # print(timestamp)
     event = create_event(action, se.block,\
             se.origin if(action == "pick") else se.destination,\
             timestamp)

@@ -8,7 +8,7 @@ KEY_TIMESTAMP = "timestamp"
 KEY_ACTION = "actionId"
 def extract(id, figure, steps):
     #read event data
-    csvfile = ("../data/%s/event_%s.csv" % (id,figure))
+    csvfile = ("../data/%s/%s/event.csv" % (id,figure))
     df_event = pd.DataFrame(data=pd.read_csv (csvfile))
     step_events = get_all_step_events(get_figure_id(figure), steps)
     events = []

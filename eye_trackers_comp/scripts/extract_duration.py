@@ -11,5 +11,5 @@ def extract(id, figure, events):
         step = Step(events.at[idx_current_step,"stepId"], begin_ts, end_ts)
         data.append(step)
 
-    csvfile = ("../data/%s/steps_duration_%s.csv" % (id,figure))
+    csvfile = ("../data/%s/%s/steps_duration.csv" % (id,figure))
     write_csv(data, csvfile)

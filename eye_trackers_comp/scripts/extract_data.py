@@ -16,28 +16,28 @@ import extract_events as ev
 
 
 def extract(id, figure):
-    csvfile = ("../data/%s/step_%s.csv" % (id,figure))
+    csvfile = ("../data/%s/%s/step.csv" % (id,figure))
     steps = pd.DataFrame(data=pd.read_csv (csvfile))
 
     duration.extract(id, figure, steps)
-    csvfile = ("../data/%s/steps_duration_%s.csv" % (id,figure))
+    csvfile = ("../data/%s/%s/steps_duration.csv" % (id,figure))
     steps_durations = pd.DataFrame(data=pd.read_csv (csvfile))
     steps = read_csv(csvfile)
 
     display.extract(id, figure, steps)
-    csvfile = ("../data/%s/displays_%s.csv" % (id,figure))
+    csvfile = ("../data/%s/%s/displays.csv" % (id,figure))
     display_durations = pd.DataFrame(data=pd.read_csv (csvfile))
 
     gz.extract(id,figure, steps)
-    csvfile = ("../data/%s/gazepoints_screen_%s.csv" % (id,figure))
+    csvfile = ("../data/%s/%s/gazepoints_screen.csv" % (id,figure))
     gazepoints = pd.DataFrame(data=pd.read_csv (csvfile))
-    csvfile = ("../data/%s/gazepoints_table_%s.csv" % (id,figure))
+    csvfile = ("../data/%s/%s/gazepoints_table.csv" % (id,figure))
     gazepoints = pd.DataFrame(data=pd.read_csv (csvfile))
 
     fx.extract(id,figure, steps)
-    csvfile = ("../data/%s/fixations_screen_%s.csv" % (id,figure))
+    csvfile = ("../data/%s/%s/fixations_screen.csv" % (id,figure))
     fixations = pd.DataFrame(data=pd.read_csv (csvfile))
-    csvfile = ("../data/%s/fixations_table_%s.csv" % (id,figure))
+    csvfile = ("../data/%s/%s/fixations_table.csv" % (id,figure))
     fixations = pd.DataFrame(data=pd.read_csv (csvfile))
 
     events = ev.extract(id, figure, steps)
@@ -46,20 +46,20 @@ def extract(id, figure):
 def main(argv):
     print("Extracting data ...")
     users = Users(pretest=True)
-    for id in [8213541]:
+    for id in users.get_users_id_list():
         users.print_user_info(id)
-        for figId in [0]:#figures.get_figures_id_list():
-            print("Transpose %s" % figures.get_name(figId))
-            if(users.get_setup(id) == 0):#Mobile data
-                mobile.transpose(id, figures.get_name(figId))
-            else:
-                stationary.transpose(id, figures.get_name(figId))
-            print("Extract %s" % figures.get_name(figId))
+        for figId in figures.get_id_list():
             try:
+                print("%s" % figures.get_complete_name(figId), end="")
+                if(users.get_setup(id) == 0):#Mobile data
+                    mobile.transpose(id, figures.get_name(figId))
+                else:
+                    stationary.transpose(id, figures.get_name(figId))
                 extract(id, figures.get_name(figId))
+                print()
             except FileNotFoundError as e:
-                print(e)
-                print("Impossible to extract %s"%figures.get_name(figId))
+                # print(e)
+                print(" -- Error: Impossible to extract")
     print("Done")
 
 

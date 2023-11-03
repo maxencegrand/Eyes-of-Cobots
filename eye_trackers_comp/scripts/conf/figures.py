@@ -36,6 +36,9 @@ for id in _TOLIST(table, KEY_ID):
 def get_name(id):
     return figures[id].get_name()
 
+def get_complete_name(id):
+    return figures[id].get_complete_name()
+
 def get_id_list():
     return list(figures.keys())
 
