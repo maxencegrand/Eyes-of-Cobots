@@ -12,3 +12,5 @@ eye_trackers_comp\demo\**\*.avi
 eye_trackers_comp/demo/**/*.mkv
 eye_trackers_comp/demo/**/*.mp4
 eye_trackers_comp/demo/**/*.avi
+eye_tracker_comp/data/recordings/*
+eye_tracker_comp\data\recordings\*
