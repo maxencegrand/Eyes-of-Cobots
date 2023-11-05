@@ -1,4 +1,4 @@
-name,id,width,height
-Screen,0,2560,1440
-Table,1,24,48
-Off-Display,2,0,0
+name,id,width,height,widthR,heightR
+Screen,0,2560,1440,2560,1440
+Table,1,48,24,760,380
+Off-Display,2,0,0,0,0

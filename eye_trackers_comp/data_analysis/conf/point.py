@@ -8,8 +8,9 @@ class Point:
     def __str__(self):
         return "(%f, %f)" % (self.x, self.y)
 
-    def distance(other):
-        np.linalg.norm(np.array((self.x, self.y)) - np.array((other.x, other.y)))
+    def distance(self, other):
+        # print(other)
+        return np.linalg.norm(np.array((self.x, self.y)) - np.array((other.x, other.y)))
 
     def get_vector(self):
         return np.array([self.x,self.y])

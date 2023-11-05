@@ -5,6 +5,7 @@ import pandas as pd
 from conf.point import Point
 from conf.position import create_position
 from conf.event import create_event
+from conf.displays import get_surface, get_display
 
 KEY_ID = "id"
 KEY_TIMESTAMP = "timestamp"
@@ -68,6 +69,8 @@ def get_all_step_events(figureId, steps):
             point_destination = \
                     Point(int(events.at[idx, KEY_x]), int(events.at[idx, KEY_Y]))
             destination = create_position(block, point_destination, horizontal, 2)#REPLACE 2
+            destination = get_surface(2).get_display_position(destination)
+            destination = get_display(1).get_real_position(destination)
             se = StepEvent(figure, steps[id], block, origin, destination)
             ses.append(se)
     return ses

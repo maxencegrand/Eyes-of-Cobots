@@ -30,12 +30,14 @@ class Position:
             self.bottom_left]
 
     def minimal_distance(self,point):
+        # print(point)
         distances = [\
             self.top_left.distance(point),\
             self.top_right.distance(point),\
             self.bottom_left.distance(point),\
             self.bottom_right.distance(point)
         ]
+        
         return min(distances)
 
     def __str__(self):

@@ -2,6 +2,7 @@ from conf.position import create_position, get_vertical
 from conf.point import Point
 from conf.block import Block
 from table_loader import _GET, _LOAD, _TOLIST, _GET_ALL, _GET_ALL_VALUES, _ADD
+from conf.displays import get_surface, get_display
 
 CSVFILE = "conf/csv/stock.csv"
 KEY_BLOCK = "blockId"
@@ -27,9 +28,11 @@ class Stock:
                     x = _GET(blocks2, color, KEY_X, keyId=KEY_COLOR)
                     y = _GET(blocks2, color, KEY_Y, keyId=KEY_COLOR)
                     block = Block(color,shape)
-                    point = Point(x,y)
+                    point = get_surface(surface).get_display_coordinates(\
+                                Point(x,y))
                     position = \
                         create_position(block, point, get_vertical(), surface)
+                    position = get_display(1).get_real_position(position)
                     self.blocks[id][shape][color] = {"block":block,\
                                                         "position":position}
 

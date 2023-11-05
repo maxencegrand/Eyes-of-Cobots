@@ -41,6 +41,7 @@ def extract(id, figure):
     fixations = pd.DataFrame(data=pd.read_csv (csvfile))
 
     events = ev.extract(id, figure, steps)
+    print(events)
     distance.extract(id, figure, steps, events)
 
 def main(argv):
@@ -57,6 +58,7 @@ def main(argv):
                     stationary.transpose(id, figures.get_name(figId))
                 extract(id, figures.get_name(figId))
                 print()
+                sys.exit(1)
             except FileNotFoundError as e:
                 # print(e)
                 print(" -- Error: Impossible to extract")

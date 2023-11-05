@@ -1,5 +1,6 @@
 from table_loader import _GET, _LOAD, _TOLIST, _GET_ALL, _GET_ALL_VALUES, _ADD
 from conf.point import Point
+from conf.position import Position
 
 #Constants
 CSVFILE_DISPLAY = "conf/csv/displays.csv"
@@ -8,20 +9,39 @@ KEY_NAME = "name"
 KEY_ID = "id"
 KEY_WIDTH = "width"
 KEY_HEIGHT = "height"
+KEY_WIDTH_R = "widthR"
+KEY_HEIGHT_R = "heightR"
 KEY_X = "x"
 KEY_Y = "y"
 
 class Display:
-    def __init__(self, name, width, height):
+    def __init__(self, name, width, height, widthR, heightR):
         self.name = name
         self.width=width
         self.height=height
+        self.widthR=widthR
+        self.heightR=heightR
 
     def get_normalized_coordinates(self, point):
-        return [float(point.x/self.width), float(point.y/self.height)]
+        return Point(float(point.x/self.width), float(point.y/self.height))
 
     def get_absolute_coordinates(self, point):
-        return [float(point.x*self.width), float(point.y*self.height)]
+        return Point(float(point.x*self.width), float(point.y*self.height))
+
+    def get_real_coordinates(self, point):
+        return Point(float(point.x*self.widthR), float(point.y*self.heightR))
+
+    def get_real_position(self, position):
+        return Position(\
+            position.surface,\
+            self.get_real_coordinates(\
+                self.get_normalized_coordinates(position.top_left)),\
+            self.get_real_coordinates(\
+                self.get_normalized_coordinates(position.top_left)),\
+            self.get_real_coordinates(\
+                self.get_normalized_coordinates(position.top_left)),\
+            self.get_real_coordinates(\
+                self.get_normalized_coordinates(position.top_left)))
 
     def get_name(self):
         return self.name
@@ -31,11 +51,23 @@ class Display:
 
 class Surface(Display):
     def __init__(self, name, width, height, origin):
-        Display.__init__(self, name, width, height)
+        Display.__init__(self, name, width, height, 1, 1)
         self.origin = origin
 
     def get_display_coordinates(self, point):
-        new_point = Point(point.x + self.width, point.y + self.height)
+        return Point(point.x + self.origin.x, point.y + self.origin.y)
+
+    def get_display_position(self, position):
+        return Position(\
+            position.surface,\
+            self.get_display_coordinates(position.top_left),\
+            self.get_display_coordinates(position.top_right),\
+            self.get_display_coordinates(position.bottom_left),\
+            self.get_display_coordinates(position.bottom_right))
+
+
+
+
 
     def __str__(self):
         str = Display.__str__(self)
@@ -49,7 +81,9 @@ for id in _TOLIST(table, KEY_ID):
     displays[id] = Display(\
         _GET(table, id, KEY_NAME),\
         _GET(table, id, KEY_WIDTH),\
-        _GET(table, id, KEY_HEIGHT))
+        _GET(table, id, KEY_HEIGHT),\
+        _GET(table, id, KEY_WIDTH_R),\
+        _GET(table, id, KEY_HEIGHT_R))
 
 def get_display(id):
     return displays[id]

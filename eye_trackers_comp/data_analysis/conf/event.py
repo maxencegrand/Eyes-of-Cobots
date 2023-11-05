@@ -8,12 +8,11 @@ class Event:
         self.is_correction = is_correction
         self.timestamp = timestamp
 
-    def distance_from_center(point):
+    def distance_from_center(self, point):
         return self.position.distance_from_center(point)
 
-    def minimal_distance(point):
-        return self.position.minimal_distance
-        (point)
+    def minimal_distance(self, point):
+        return self.position.minimal_distance(point)
 
 class Pick(Event):
     def __init__(self, block, origin, timestamp, is_correction=False):

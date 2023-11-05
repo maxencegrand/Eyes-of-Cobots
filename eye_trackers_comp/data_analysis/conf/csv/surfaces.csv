@@ -1,4 +1,4 @@
 name,id,width,height,x,y
-"Right Stock",1,14,24,0,0
+"Right Stock",0,14,24,0,0
 "Assemly Zone",2,20,24,14,0
-"Left Stock",0,14,24,34,0
+"Left Stock",1,14,24,34,0

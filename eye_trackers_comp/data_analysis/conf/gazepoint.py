@@ -41,7 +41,7 @@ def read_csv(csvfile):
     for idx in df.index:
         ts = int(df.at[idx, KEY_TS])
         point = conf.point.Point(float(df.at[idx, KEY_X]), float(df.at[idx, KEY_Y]))
-        gazepoints[ts] = Gazepoint(point, display, ts)
+        gazepoints[ts] = Gazepoint(point, ts)
     return gazepoints
 
 def centroid(gazepoints):
