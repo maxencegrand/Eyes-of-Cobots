@@ -26,8 +26,3 @@ def get_name(id):
 
 def get_id_list():
     return list(actions.keys())
-
-print("ACTIONS")
-for id in get_id_list():
-    print(actions[id])
-print()

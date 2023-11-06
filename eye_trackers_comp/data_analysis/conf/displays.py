@@ -23,6 +23,7 @@ class Display:
         self.heightR=heightR
 
     def get_normalized_coordinates(self, point):
+        # print(f"{point} {self.width} {self.height} {Point(float(point.x/self.width), float(point.y/self.height))}")
         return Point(float(point.x/self.width), float(point.y/self.height))
 
     def get_absolute_coordinates(self, point):
@@ -64,10 +65,6 @@ class Surface(Display):
             self.get_display_coordinates(position.top_right),\
             self.get_display_coordinates(position.bottom_left),\
             self.get_display_coordinates(position.bottom_right))
-
-
-
-
 
     def __str__(self):
         str = Display.__str__(self)

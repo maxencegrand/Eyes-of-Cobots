@@ -15,10 +15,10 @@ def extract(id, figure, steps, events):
     previous = -1
     idx = 0
     for event in events:
-        print(event)
+        # print(event)
         ts = event.timestamp
         step = get_step(ts, steps)
-        print(step)
+        # print(step)
         if(previous == -1):
             previous = step.begin
         points = get_points(previous, ts, gazepoints_table)
@@ -26,15 +26,15 @@ def extract(id, figure, steps, events):
         for ts in points.keys():
             points_absolute[ts] = gz.Gazepoint(\
                 get_display(1).get_real_coordinates(points[ts].point), ts)
-            print(f"{points[ts]} -> {points_absolute[ts]}")
+            # print(f"{points[ts]} -> {points_absolute[ts]}")
 
         first_ts = list(points.keys())[0]
         distance = {}
         for ts in points_absolute.keys():
             dist = event.minimal_distance(points_absolute[ts].point)
             # dist *= 16
-            print(f"{ts-first_ts}: {dist}")
+            # print(f"{ts-first_ts}: {dist}")
             distance[ts-first_ts] = dist
         previous = ts
-        
+
     return

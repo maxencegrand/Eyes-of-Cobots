@@ -14,7 +14,8 @@ import extract_fixations as fx
 import extract_distance as distance
 import extract_events as ev
 
-
+MOBILE = 0
+STATIONARY = 0
 def extract(id, figure):
     csvfile = ("../data/%s/%s/step.csv" % (id,figure))
     steps = pd.DataFrame(data=pd.read_csv (csvfile))
@@ -47,12 +48,15 @@ def extract(id, figure):
 def main(argv):
     print("Extracting data ...")
     users = Users(pretest=True)
-    for id in users.get_users_id_list():
+    for id in [4439551]:
+    # for id in users.get_users_id_list():
         users.print_user_info(id)
-        for figId in figures.get_id_list():
+        # for figId in figures.get_id_list():
+        for figId in [2]:
             try:
-                print("%s" % figures.get_complete_name(figId), end="")
-                if(users.get_setup(id) == 0):#Mobile data
+                # print("%s" % figures.get_complete_name(figId), end="")
+                print("%s" % figures.get_complete_name(figId))
+                if(users.get_setup(id) == MOBILE):
                     mobile.transpose(id, figures.get_name(figId))
                 else:
                     stationary.transpose(id, figures.get_name(figId))
@@ -60,7 +64,7 @@ def main(argv):
                 print()
                 sys.exit(1)
             except FileNotFoundError as e:
-                # print(e)
+                print(e)
                 print(" -- Error: Impossible to extract")
     print("Done")
 
