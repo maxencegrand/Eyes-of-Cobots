@@ -28,18 +28,18 @@ def extract(id, figure):
     display.extract(id, figure, steps)
     csvfile = ("../data/%s/%s/displays.csv" % (id,figure))
     display_durations = pd.DataFrame(data=pd.read_csv (csvfile))
-    
+
     gz.extract(id,figure, steps)
     csvfile = ("../data/%s/%s/gazepoints_screen.csv" % (id,figure))
     gazepoints = pd.DataFrame(data=pd.read_csv (csvfile))
     csvfile = ("../data/%s/%s/gazepoints_table.csv" % (id,figure))
     gazepoints = pd.DataFrame(data=pd.read_csv (csvfile))
-    #
-    # fx.extract(id,figure, steps)
-    # csvfile = ("../data/%s/%s/fixations_screen.csv" % (id,figure))
-    # fixations = pd.DataFrame(data=pd.read_csv (csvfile))
-    # csvfile = ("../data/%s/%s/fixations_table.csv" % (id,figure))
-    # fixations = pd.DataFrame(data=pd.read_csv (csvfile))
+    
+    fx.extract(id,figure, steps)
+    csvfile = ("../data/%s/%s/fixations_screen.csv" % (id,figure))
+    fixations = pd.DataFrame(data=pd.read_csv (csvfile))
+    csvfile = ("../data/%s/%s/fixations_table.csv" % (id,figure))
+    fixations = pd.DataFrame(data=pd.read_csv (csvfile))
     #
     # events = ev.extract(id, figure, steps)
     # print(events)
