@@ -4,6 +4,7 @@ from conf.displays import get_display
 import csv
 import os
 
+KEY_ID = "id"
 KEY_ACTION = "actionId"
 KEY_COLOR = "colorId"
 KEY_SHAPE = "shapeId"
@@ -36,11 +37,11 @@ def extract(id, figure, steps, events):
     with open(csv_label, 'w', newline='') as csv_label:
         spamwriter = csv.writer(csv_label, delimiter=',',
                                 quotechar='\"', quoting=csv.QUOTE_MINIMAL)
-        spamwriter.writerow([KEY_ACTION, KEY_COLOR, KEY_SHAPE,\
+        spamwriter.writerow([KEY_ID, KEY_ACTION, KEY_COLOR, KEY_SHAPE,\
             KEY_X1, KEY_Y1, KEY_X2, KEY_Y2, KEY_X3, KEY_Y3, KEY_X4, KEY_Y4])
         id_event = 0
         for event in events:
-            spamwriter.writerow(event.get_rows())
+            spamwriter.writerow(event.get_rows(id_event))
             csv_dist = ("%s/%d_table.csv" % (event_dir, id_event))
             with open(csv_dist, 'w', newline='') as csv_dist:
                 spamwriter_dist = csv.writer(csv_dist, delimiter=',',\
@@ -51,7 +52,7 @@ def extract(id, figure, steps, events):
                 if(previous == -1):
                     previous = step.begin
                 points = get_points(previous, ts, gazepoints_table)
-                
+
                 first_ts = list(points.keys())[0]
                 for ts in points.keys():
                     dist = event.minimal_distance(points[ts].point)

@@ -15,8 +15,8 @@ class Event:
     def minimal_distance(self, point):
         return self.position.minimal_distance(point)
 
-    def get_rows(self):
-        return [get_id(self.name), \
+    def get_rows(self, id):
+        return [id, get_id(self.name), \
         self.block.color, \
         self.block.shape, \
         self.position.top_left.x, \
