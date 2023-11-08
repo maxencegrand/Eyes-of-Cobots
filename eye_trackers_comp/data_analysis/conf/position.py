@@ -8,12 +8,11 @@ def min(list):
     return m
 
 class Position:
-    def __init__(self, surface, top_left, top_right, bottom_left, bottom_right):
+    def __init__(self, top_left, top_right, bottom_left, bottom_right):
         self.top_right = top_right
         self.top_left = top_left
         self.bottom_right = bottom_right
         self.bottom_left = bottom_left
-        self.surface = surface
 
     def center(self):
         return centroid([self.top_left, self.top_right,\
@@ -37,7 +36,7 @@ class Position:
             self.bottom_left.distance(point),\
             self.bottom_right.distance(point)
         ]
-        
+
         return min(distances)
 
     def __str__(self):
@@ -46,7 +45,6 @@ class Position:
         str += f"{self.top_right},"
         str += f"{self.bottom_right},"
         str += f"{self.bottom_left}"
-        str += f"] in {self.surface}"
         return str
 
 def is_horizontal(horizontal):
@@ -58,23 +56,23 @@ def get_horizontal():
 def get_vertical():
     return 0
 
-def create_position(block, top_left, horizontal, surface):
+def create_position(block, top_left, horizontal):
     # The block is a cube
     if(block.is_a_cube()):
-        return Position(surface,\
+        return Position(\
             Point(top_left.x,top_left.y),\
             Point(top_left.x+1,top_left.y),\
             Point(top_left.x,top_left.y+1),\
             Point(top_left.x+1,top_left.y+1))
     else:
         if(is_horizontal(horizontal)):
-            return Position(surface,\
+            return Position(\
                 Point(top_left.x,top_left.y),\
                 Point(top_left.x+3,top_left.y),\
                 Point(top_left.x,top_left.y+1),\
                 Point(top_left.x+3,top_left.y+1))
         else:
-            return Position(surface, \
+            return Position(\
                 Point(top_left.x,top_left.y),\
                 Point(top_left.x+1,top_left.y),\
                 Point(top_left.x,top_left.y+3),\

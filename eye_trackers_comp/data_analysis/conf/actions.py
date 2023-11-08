@@ -24,5 +24,10 @@ for id in _TOLIST(table, KEY_ID):
 def get_name(id):
     return actions[id].get_name()
 
+def get_id(name):
+    for id in get_id_list():
+        if(get_name(id) == name):
+            return id
+    return -1
 def get_id_list():
     return list(actions.keys())

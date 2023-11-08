@@ -68,9 +68,8 @@ def get_all_step_events(figureId, steps):
                     events.at[idx, KEY_COLOR])
             point_destination = \
                     Point(int(events.at[idx, KEY_x]), int(events.at[idx, KEY_Y]))
-            destination = create_position(block, point_destination, horizontal, 2)#REPLACE 2
-            destination = get_surface(2).get_display_position(destination)
-            destination = get_display(1).get_real_position(destination)
+            destination = create_position(block, point_destination, horizontal)#REPLACE 2
+            destination = get_display(1).get_real_position_from_absolute(destination)
             se = StepEvent(figure, steps[id], block, origin, destination)
             ses.append(se)
     return ses

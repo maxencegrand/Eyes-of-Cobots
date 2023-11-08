@@ -37,12 +37,11 @@ class Display:
         return Point(float(point.x*self.width_mm), float(point.y*self.height_mm))
 
     def get_real_coordinates_from_absolute(self, point):
-        return get_real_coordinates_from_normalized(\
-            get_normalized_coordinates(point))
+        return self.get_real_coordinates_from_normalized(\
+            self.get_normalized_coordinates(point))
 
     def get_real_position_from_normalized(self, position):
         return Position(\
-            position.surface,\
             self.get_real_coordinates_from_normalized(position.top_left),\
             self.get_real_coordinates_from_normalized(position.top_right),\
             self.get_real_coordinates_from_normalized(position.bottom_left),\
@@ -50,7 +49,6 @@ class Display:
 
     def get_real_position_from_absolute(self, position):
         return Position(\
-            position.surface,\
             self.get_real_coordinates_from_absolute(position.top_left),\
             self.get_real_coordinates_from_absolute(position.top_right),\
             self.get_real_coordinates_from_absolute(position.bottom_left),\

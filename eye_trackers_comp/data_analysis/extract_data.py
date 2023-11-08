@@ -34,16 +34,15 @@ def extract(id, figure):
     gazepoints = pd.DataFrame(data=pd.read_csv (csvfile))
     csvfile = ("../data/%s/%s/gazepoints_table.csv" % (id,figure))
     gazepoints = pd.DataFrame(data=pd.read_csv (csvfile))
-    
+
     fx.extract(id,figure, steps)
     csvfile = ("../data/%s/%s/fixations_screen.csv" % (id,figure))
     fixations = pd.DataFrame(data=pd.read_csv (csvfile))
     csvfile = ("../data/%s/%s/fixations_table.csv" % (id,figure))
     fixations = pd.DataFrame(data=pd.read_csv (csvfile))
     #
-    # events = ev.extract(id, figure, steps)
-    # print(events)
-    # distance.extract(id, figure, steps, events)
+    events = ev.extract(id, figure, steps)
+    distance.extract(id, figure, steps, events)
 
 def main(argv):
     print("Extracting data ...")
@@ -51,8 +50,8 @@ def main(argv):
     # for id in [4439551]:
     for id in users.get_users_id_list():
         users.print_user_info(id)
-        # for figId in figures.get_id_list():
-        for figId in [0]:
+        for figId in figures.get_id_list():
+        # for figId in [0]:
             try:
                 # print("%s" % figures.get_complete_name(figId), end="")
                 print("%s" % figures.get_complete_name(figId))
@@ -62,9 +61,7 @@ def main(argv):
                     stationary.transpose(id, figures.get_name(figId))
                 extract(id, figures.get_name(figId))
                 print()
-                sys.exit(1)
             except FileNotFoundError as e:
-                print(e)
                 print(" -- Error: Impossible to extract")
     print("Done")
 

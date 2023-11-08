@@ -6,7 +6,6 @@ from conf.displays import get_surface, get_display
 
 CSVFILE = "conf/csv/stock.csv"
 KEY_BLOCK = "blockId"
-KEY_SURFACE = "surfaceId"
 KEY_COLOR = "colorId"
 KEY_SHAPE = "shapeId"
 KEY_X = "x"
@@ -24,15 +23,13 @@ class Stock:
                 self.blocks[id][shape] = {}
                 blocks2 = _GET_ALL(blocks_, shape, KEY_SHAPE)
                 for color in [0,1,2,3]:
-                    surface = _GET(blocks2, color, KEY_SURFACE, keyId=KEY_COLOR)
                     x = _GET(blocks2, color, KEY_X, keyId=KEY_COLOR)
                     y = _GET(blocks2, color, KEY_Y, keyId=KEY_COLOR)
                     block = Block(color,shape)
-                    point = get_surface(surface).get_display_coordinates(\
-                                Point(x,y))
-                    position = \
-                        create_position(block, point, get_vertical(), surface)
-                    position = get_display(1).get_real_position(position)
+                    point = Point(x,y)
+                    position = create_position(block, point, get_vertical())
+                    position = get_display(1).get_real_position_from_absolute(\
+                                                                    position)
                     self.blocks[id][shape][color] = {"block":block,\
                                                         "position":position}
 
