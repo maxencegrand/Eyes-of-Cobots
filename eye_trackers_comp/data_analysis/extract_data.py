@@ -28,31 +28,31 @@ def extract(id, figure):
     display.extract(id, figure, steps)
     csvfile = ("../data/%s/%s/displays.csv" % (id,figure))
     display_durations = pd.DataFrame(data=pd.read_csv (csvfile))
-
+    
     gz.extract(id,figure, steps)
     csvfile = ("../data/%s/%s/gazepoints_screen.csv" % (id,figure))
     gazepoints = pd.DataFrame(data=pd.read_csv (csvfile))
     csvfile = ("../data/%s/%s/gazepoints_table.csv" % (id,figure))
     gazepoints = pd.DataFrame(data=pd.read_csv (csvfile))
-
-    fx.extract(id,figure, steps)
-    csvfile = ("../data/%s/%s/fixations_screen.csv" % (id,figure))
-    fixations = pd.DataFrame(data=pd.read_csv (csvfile))
-    csvfile = ("../data/%s/%s/fixations_table.csv" % (id,figure))
-    fixations = pd.DataFrame(data=pd.read_csv (csvfile))
-
-    events = ev.extract(id, figure, steps)
-    print(events)
-    distance.extract(id, figure, steps, events)
+    #
+    # fx.extract(id,figure, steps)
+    # csvfile = ("../data/%s/%s/fixations_screen.csv" % (id,figure))
+    # fixations = pd.DataFrame(data=pd.read_csv (csvfile))
+    # csvfile = ("../data/%s/%s/fixations_table.csv" % (id,figure))
+    # fixations = pd.DataFrame(data=pd.read_csv (csvfile))
+    #
+    # events = ev.extract(id, figure, steps)
+    # print(events)
+    # distance.extract(id, figure, steps, events)
 
 def main(argv):
     print("Extracting data ...")
     users = Users(pretest=True)
-    for id in [4439551]:
-    # for id in users.get_users_id_list():
+    # for id in [4439551]:
+    for id in users.get_users_id_list():
         users.print_user_info(id)
         # for figId in figures.get_id_list():
-        for figId in [2]:
+        for figId in [0]:
             try:
                 # print("%s" % figures.get_complete_name(figId), end="")
                 print("%s" % figures.get_complete_name(figId))

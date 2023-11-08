@@ -9,40 +9,52 @@ KEY_NAME = "name"
 KEY_ID = "id"
 KEY_WIDTH = "width"
 KEY_HEIGHT = "height"
-KEY_WIDTH_R = "widthR"
-KEY_HEIGHT_R = "heightR"
+KEY_WIDTH_R = "width_mm"
+KEY_HEIGHT_R = "height_mm"
 KEY_X = "x"
 KEY_Y = "y"
 
+ID_SCREEN = 0
+ID_TABLE = 1
+
+ID_SCREEN_SURFACE = 3
+
 class Display:
-    def __init__(self, name, width, height, widthR, heightR):
+    def __init__(self, name, width, height, width_mm, height_mm):
         self.name = name
         self.width=width
         self.height=height
-        self.widthR=widthR
-        self.heightR=heightR
+        self.width_mm=width_mm
+        self.height_mm=height_mm
 
     def get_normalized_coordinates(self, point):
-        # print(f"{point} {self.width} {self.height} {Point(float(point.x/self.width), float(point.y/self.height))}")
         return Point(float(point.x/self.width), float(point.y/self.height))
 
     def get_absolute_coordinates(self, point):
         return Point(float(point.x*self.width), float(point.y*self.height))
 
-    def get_real_coordinates(self, point):
-        return Point(float(point.x*self.widthR), float(point.y*self.heightR))
+    def get_real_coordinates_from_normalized(self, point):
+        return Point(float(point.x*self.width_mm), float(point.y*self.height_mm))
 
-    def get_real_position(self, position):
+    def get_real_coordinates_from_absolute(self, point):
+        return get_real_coordinates_from_normalized(\
+            get_normalized_coordinates(point))
+
+    def get_real_position_from_normalized(self, position):
         return Position(\
             position.surface,\
-            self.get_real_coordinates(\
-                self.get_normalized_coordinates(position.top_left)),\
-            self.get_real_coordinates(\
-                self.get_normalized_coordinates(position.top_left)),\
-            self.get_real_coordinates(\
-                self.get_normalized_coordinates(position.top_left)),\
-            self.get_real_coordinates(\
-                self.get_normalized_coordinates(position.top_left)))
+            self.get_real_coordinates_from_normalized(position.top_left),\
+            self.get_real_coordinates_from_normalized(position.top_right),\
+            self.get_real_coordinates_from_normalized(position.bottom_left),\
+            self.get_real_coordinates_from_normalized(position.bottom_right))
+
+    def get_real_position_from_absolute(self, position):
+        return Position(\
+            position.surface,\
+            self.get_real_coordinates_from_absolute(position.top_left),\
+            self.get_real_coordinates_from_absolute(position.top_right),\
+            self.get_real_coordinates_from_absolute(position.bottom_left),\
+            self.get_real_coordinates_from_absolute(position.bottom_right))
 
     def get_name(self):
         return self.name
@@ -51,9 +63,10 @@ class Display:
         return "%s (%d,%d)" % (self.get_name(), self.width, self.height)
 
 class Surface(Display):
-    def __init__(self, name, width, height, origin):
-        Display.__init__(self, name, width, height, 1, 1)
+    def __init__(self, name, width, height, origin, display):
+        Display.__init__(self, name, width, height, display.width_mm, display.height_mm)
         self.origin = origin
+        self.display = display
 
     def get_display_coordinates(self, point):
         return Point(point.x + self.origin.x, point.y + self.origin.y)
@@ -88,28 +101,27 @@ def get_display(id):
 def get_displays_id_list():
     return list(displays.keys())
 
-# print("DISPLAYS")
-# for id in get_displays_id_list():
-#     print(get_display(id))
-# print()
-
 # Load all surfaces
 surfaces = {}
 table = _LOAD(CSVFILE_SURFACES)
 for id in _TOLIST(table, KEY_ID):
-    surfaces[id] = Surface(\
-        _GET(table, id, KEY_NAME),\
-        _GET(table, id, KEY_WIDTH),\
-        _GET(table, id, KEY_HEIGHT),\
-        Point(_GET(table, id, KEY_X), _GET(table, id, KEY_Y)))
+    if(id == ID_SCREEN_SURFACE):
+        surfaces[id] = Surface(\
+            _GET(table, id, KEY_NAME),\
+            _GET(table, id, KEY_WIDTH),\
+            _GET(table, id, KEY_HEIGHT),\
+            Point(_GET(table, id, KEY_X), _GET(table, id, KEY_Y)),\
+            get_display(ID_SCREEN))
+    else:
+        surfaces[id] = Surface(\
+            _GET(table, id, KEY_NAME),\
+            _GET(table, id, KEY_WIDTH),\
+            _GET(table, id, KEY_HEIGHT),\
+            Point(_GET(table, id, KEY_X), _GET(table, id, KEY_Y)),\
+            get_display(ID_TABLE))
 
 def get_surface(id):
     return surfaces[id]
 
 def get_surfaces_id_list():
     return list(surfaces.keys())
-
-# print("SURFACES")
-# for id in get_surfaces_id_list():
-#     print(get_surface(id))
-# print()

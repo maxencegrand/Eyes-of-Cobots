@@ -1,5 +1,5 @@
 name,id,width,height,x,y
-Right,0,14,24,0,0
+Left,0,14,24,0,0
+Right,1,14,24,34,0
 Assembly,2,20,24,14,0
-Left,1,14,24,34,0
 Screen,3,2560,1440,0,0

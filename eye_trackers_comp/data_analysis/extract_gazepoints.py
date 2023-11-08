@@ -3,7 +3,7 @@ import csv
 import math
 from conf.point import Point
 from conf.gazepoint import Gazepoint, write_csv
-
+from conf.displays import ID_SCREEN, ID_TABLE, get_display
 CSVFILE = {
 "Table" : "table2.csv",
 "Screen" : "instructions2.csv"
@@ -78,13 +78,17 @@ def extract(id, figure, steps_duration):
     for ts in gazepoints_screen.keys():
         pnt = gazepoints_screen[ts]
         point = Point(pnt[0], pnt[1])
-        tmp[ts] = Gazepoint(point, ts)
+        tmp[ts] = Gazepoint(\
+            get_display(ID_SCREEN).get_real_coordinates_from_normalized(point),\
+             ts)
     gazepoints_screen = dict(sorted(tmp.items()))
     tmp = {}
     for ts in gazepoints_table.keys():
         pnt = gazepoints_table[ts]
         point = Point(pnt[0], pnt[1])
-        tmp[ts] = Gazepoint(point, ts)
+        tmp[ts] = Gazepoint(\
+            get_display(ID_TABLE).get_real_coordinates_from_normalized(point),\
+             ts)
     gazepoints_table = dict(sorted(tmp.items()))
 
     # Gazepoints

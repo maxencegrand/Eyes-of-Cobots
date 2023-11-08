@@ -1,10 +1,11 @@
 import pandas as pd
 import csv
 import math
+from conf.displays import ID_SCREEN, ID_TABLE
 
 DISPLAY = {
-    0:"Screen",\
-    1:"Table",\
+    ID_SCREEN:"Screen",\
+    ID_TABLE:"Table",\
     -1:"No Data"
 }
 
@@ -117,8 +118,8 @@ def extract(id, figure, steps_durations):
     df_table = pd.DataFrame(data=pd.read_csv (csvfile))
     idx_table = 0
 
-    is_on_screen = get_data_display(df_screen, 0, steps_durations)
-    is_on_table = get_data_display(df_table, 1, steps_durations)
+    is_on_screen = get_data_display(df_screen, ID_SCREEN, steps_durations)
+    is_on_table = get_data_display(df_table, ID_TABLE, steps_durations)
 
     # Merge screen and table
     is_on_display = {}
@@ -135,4 +136,5 @@ def extract(id, figure, steps_durations):
         for step in list(is_on_display.keys()):
             for ts in list(is_on_display[step].keys()):
                 spamwriter.writerow([step, ts, \
-                        is_on_display[step][ts][0], is_on_display[step][ts][1]])
+                        is_on_display[step][ts][0],\
+                        is_on_display[step][ts][1]])
