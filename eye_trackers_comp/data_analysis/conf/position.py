@@ -28,15 +28,42 @@ class Position:
             self.bottom_right,\
             self.bottom_left]
 
+    def is_inside(self, point):
+        if(point.x < self.top_left.x or point.x < self.bottom_left.x):
+            return False
+        if(point.x > self.top_right.x or point.x > self.bottom_right.x):
+            return False
+        if(point.y > self.bottom_right.y or point.y > self.bottom_left.y):
+            return False
+        if(point.y < self.top_right.y or point.y < self.top_left.y):
+            return False
+        return True
+
     def minimal_distance(self,point):
         # print(point)
+        #Corner dustance
         distances = [\
             self.top_left.distance(point),\
             self.top_right.distance(point),\
             self.bottom_left.distance(point),\
             self.bottom_right.distance(point)
         ]
+        #Plane distance
+        if(point.x >= self.top_left.x and point.x <= self.top_right.x):
+            distances.append(Point(point.x,self.top_left.y).distance(point))
+            distances.append(Point(point.x,self.top_right.y).distance(point))
+        if(point.x >= self.bottom_left.x and point.x <= self.bottom_right.x):
+            distances.append(Point(point.x,self.bottom_left.y).distance(point))
+            distances.append(Point(point.x,self.bottom_right.y).distance(point))
+        if(point.y >= self.bottom_right.x and point.x <= self.top_right.x):
+            distances.append(Point(self.bottom_right.x,point.y).distance(point))
+            distances.append(Point(self.top_right.x,point.y).distance(point))
+        if(point.y >= self.bottom_left.x and point.x <= self.top_left.x):
+            distances.append(Point(self.bottom_left.x,point.y).distance(point))
+            distances.append(Point(self.top_left.x,point.y).distance(point))
 
+        if(self.is_inside(point)):
+            return 0-min(distances)
         return min(distances)
 
     def __str__(self):
@@ -55,6 +82,13 @@ def get_horizontal():
 
 def get_vertical():
     return 0
+
+def create_position_from_size(top_left, width, height):
+    top_left = top_left
+    top_right = Point(top_left.x+width, top_left.y)
+    bottom_left = Point(top_left.x, top_left.y+height)
+    bottom_right = Point(top_left.x+width, top_left.y+height)
+    return Position(top_left, top_right, bottom_left, bottom_right)
 
 def create_position(block, top_left, horizontal):
     # The block is a cube

@@ -4,18 +4,19 @@ from table_loader import _GET, _LOAD, _TOLIST, _GET_ALL, _GET_ALL_VALUES, _ADD
 import conf.colors as colors
 
 class Block:
-    def __init__(self, color, shape):
+    def __init__(self, id, color, shape):
         self.color = color
         self.shape = shape
+        self.id = id
 
     def is_a_cube(self):
         return is_a_cube(self.shape)
 
     def __str__(self):
         if self.is_a_cube():
-            return f"{colors.get_name(self.color)} cube"
+            return f"{colors.get_name(self.color)} cube id={self.id}"
         else:
-            return f"{colors.get_name(self.color)} brick"
+            return f"{colors.get_name(self.color)} brick id={self.id}"
 
     def center(self):
         return self.position.center()
