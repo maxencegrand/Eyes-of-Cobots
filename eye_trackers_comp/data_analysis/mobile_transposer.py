@@ -4,6 +4,9 @@ import pandas as pd
 import csv, sys
 from conf.displays import get_surface, get_display
 from conf.point import Point
+import cv2
+
+import sys
 
 PATH = "../data/recordings"
 PATH_EXPORT = "exports/000/surfaces"

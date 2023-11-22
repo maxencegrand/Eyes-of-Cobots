@@ -51,7 +51,7 @@ def main(argv):
     for id in users.get_users_id_list():
         users.print_user_info(id)
         for figId in figures.get_id_list():
-        # for figId in [0]:
+        # for figId in [2]:
             try:
                 # print("%s" % figures.get_complete_name(figId), end="")
                 print("%s" % figures.get_complete_name(figId))
