@@ -1,6 +1,6 @@
 from conf.position import Position
 from conf.block import Block
-from conf.actions import get_id
+
 class Event:
     def __init__(self, block, position, timestamp, is_correction=False):
         self.block = block
@@ -15,8 +15,14 @@ class Event:
     def minimal_distance(self, point):
         return self.position.minimal_distance(point)
 
+    def isPick(self):
+        return False
+
+    def isPlace(self):
+        return not self.isPick()
+
     def get_rows(self, id):
-        return [id, get_id(self.name), \
+        return [id,\
         self.block.color, \
         self.block.shape, \
         self.position.top_left.x, \
@@ -34,6 +40,9 @@ class Pick(Event):
                 is_correction=is_correction)
         self.name = "pick"
 
+    def isPick(self):
+        return True
+
     def __str__(self):
         str = f"Pick {self.block} from {self.position} at {self.timestamp}"
         return str
@@ -43,6 +52,9 @@ class Place(Event):
         Event.__init__(self, block, destination, timestamp,\
                 is_correction=is_correction)
         self.name = "place"
+
+    def isPick(self):
+        return False
 
     def __str__(self):
         str = f"Place {self.block} to {self.position} at {self.timestamp}"
