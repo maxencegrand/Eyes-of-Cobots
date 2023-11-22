@@ -33,14 +33,13 @@ def extract_pick(event_dir, steps, events, gazepoints_table):
     with open(csv_label, 'w', newline='') as csv_label:
         spamwriter = csv.writer(csv_label, delimiter=',',
                                 quotechar='\"', quoting=csv.QUOTE_MINIMAL)
-        spamwriter.writerow([KEY_ID, KEY_ACTION, KEY_COLOR, KEY_SHAPE,\
+        spamwriter.writerow([KEY_ID, KEY_COLOR, KEY_SHAPE,\
             KEY_X1, KEY_Y1, KEY_X2, KEY_Y2, KEY_X3, KEY_Y3, KEY_X4, KEY_Y4])
         id_event = 0
         for event in events:
-            rows = event.get_rows(id_event)
-            if(get_name(rows[1]) == "place"):
+            if(not event.isPick()):
                 continue
-            spamwriter.writerow(rows)
+            spamwriter.writerow(event.get_rows(id_event))
             csv_dist = ("%s/pick/%d_table.csv" % (event_dir, id_event))
             with open(csv_dist, 'w', newline='') as csv_dist:
                 spamwriter_dist = csv.writer(csv_dist, delimiter=',',\
@@ -80,6 +79,55 @@ def extract_pick(event_dir, steps, events, gazepoints_table):
                 previous = ts
             id_event += 1
 
+def extract_place(event_dir, steps, events, gazepoints_table):
+    stock = Stock()
+    previous = -1
+    csv_label = ("%s/place/labels.csv" % event_dir)
+    with open(csv_label, 'w', newline='') as csv_label:
+        spamwriter = csv.writer(csv_label, delimiter=',',
+                                quotechar='\"', quoting=csv.QUOTE_MINIMAL)
+        spamwriter.writerow([KEY_ID, KEY_COLOR, KEY_SHAPE,\
+            KEY_X1, KEY_Y1, KEY_X2, KEY_Y2, KEY_X3, KEY_Y3, KEY_X4, KEY_Y4])
+        id_event = 0
+        for event in events:
+            if(not event.isPlace()):
+                continue
+            spamwriter.writerow(event.get_rows(id_event))
+            csv_dist = ("%s/place/%d_table.csv" % (event_dir, id_event))
+            with open(csv_dist, 'w', newline='') as csv_dist:
+                spamwriter_dist = csv.writer(csv_dist, delimiter=',',\
+                                    quotechar='\"', quoting=csv.QUOTE_MINIMAL)
+                spamwriter_dist.writerow(["timestamp", "pos_to_place", "expand_1","expand_2", "expand_4"])
+                ts = event.timestamp
+                step = get_step(ts, steps)
+                if(previous == -1):
+                    previous = step.begin
+                points = get_points(previous, ts, gazepoints_table)
+
+                first_ts = list(points.keys())[0]
+                pos = event.position
+                pos = get_display(1).get_normalized_position_from_real(pos)
+                pos = get_display(1).get_absolute_position(pos)
+                expand_1 = get_display(1).get_real_position_from_absolute(\
+                                                                pos.expand(1,1))
+                expand_2 = get_display(1).get_real_position_from_absolute(\
+                                                                pos.expand(2,2))
+                expand_4 = get_display(1).get_real_position_from_absolute(\
+                                                                pos.expand(4,4))
+                for ts in points.keys():
+                    dist_to_place = event.minimal_distance(points[ts].point)
+                    dist_to_expand_1 = expand_1.minimal_distance(points[ts].point)
+                    dist_to_expand_2 = expand_2.minimal_distance(points[ts].point)
+                    dist_to_expand_4 = expand_4.minimal_distance(points[ts].point)
+                    spamwriter_dist.writerow([\
+                                    (ts-first_ts),\
+                                    dist_to_place,\
+                                    dist_to_expand_1,\
+                                    dist_to_expand_2,\
+                                    dist_to_expand_4])
+                previous = ts
+            id_event += 1
+
 def extract(id, figure, steps, events):
     gazepoints_table = gz.read_csv("../data/%s/%s/gazepoints_table.csv" %\
             (id, figure))
@@ -93,5 +141,6 @@ def extract(id, figure, steps, events):
         os.mkdir("../data/%s/%s/events/place" % (id,figure))
 
     extract_pick(event_dir, steps, events, gazepoints_table)
+    extract_place(event_dir, steps, events, gazepoints_table)
 
     return

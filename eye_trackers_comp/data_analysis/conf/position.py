@@ -39,6 +39,13 @@ class Position:
             return False
         return True
 
+    def expand(self, width, height):
+        return Position(\
+                Point(self.top_left.x-width, self.top_left.y-height),\
+                Point(self.top_right.x+width, self.top_right.y-height),\
+                Point(self.bottom_left.x-width, self.bottom_left.y+height),\
+                Point(self.bottom_right.x+width, self.bottom_right.y+height)\
+            )
     def minimal_distance(self,point):
         # print(point)
         #Corner dustance
